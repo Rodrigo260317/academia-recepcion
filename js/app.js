@@ -902,7 +902,7 @@
         return '<td class="vacio">·</td>';
       }).join('') + '</tr>').join('') + '</tbody></table></div>' +
       '<div class="leyenda"><span class="tag aprobado">90</span> aprobado <span class="tag reintentar">60</span> no aprobó <span class="tag atrasado">ATR</span> atrasado (más de 2 días) <span class="vacio num">·</span> aún no toca</div>' +
-      '<p class="nota-pie">Los módulos 13 al 20 aparecen aquí cuando se publiquen. La guía de presentación para imprimir está en <a href="guia.html" target="_blank" rel="noopener">guia.html</a>.</p></section>' +
+      '<p class="nota-pie">Los módulos 17 al 20 aparecen aquí cuando se publiquen. La guía de presentación para imprimir está en <a href="guia.html" target="_blank" rel="noopener">guia.html</a>.</p></section>' +
       '<section class="seccion"><div class="titulo"><h3>Compromisos</h3></div>' + compromisos() + '</section>';
   }
 
