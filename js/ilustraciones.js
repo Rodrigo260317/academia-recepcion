@@ -19,6 +19,8 @@
     manos: BASE + '<rect x="40" y="52" width="40" height="28" rx="2"/><path d="M48 60h24M48 68h16"/><path d="M14 74h18l8-6M14 86h20l6-6"/><path d="M106 74H88l-8-6M106 86H86l-6-6"/><path class="acento" d="M60 40v6M54 42l2 4M66 42l-2 4"/>',
     tablet: BASE + '<rect x="30" y="30" width="60" height="74" rx="6"/><path d="M38 44h44M38 54h44M38 64h30"/><path d="M40 86c6-6 10 6 16 0s10-6 14 0"/><circle class="acento" cx="60" cy="98" r="2"/>',
     pantalla: BASE + '<rect x="20" y="28" width="80" height="50" rx="3"/><path d="M60 78v18M44 100h32"/><path d="M28 40h30M28 52h22M28 64h26"/><path class="acento" d="M70 40h22M70 52h22M70 64h22"/>',
+    pos: BASE + '<rect x="38" y="26" width="44" height="74" rx="6"/><rect x="44" y="34" width="32" height="18" rx="2"/><path d="M46 62h6M57 62h6M68 62h6M46 72h6M57 72h6M68 72h6M46 82h6M57 82h6M68 82h6"/><path class="acento" d="M82 44h14M82 52h10"/>',
+    alerta: BASE + '<path d="M60 26l38 66H22z"/><path d="M60 50v20"/><circle cx="60" cy="80" r="2.5"/><path class="acento" d="M26 40l-8-6M94 40l8-6"/>',
     llave: BASE + '<circle cx="42" cy="60" r="14"/><circle cx="42" cy="60" r="5"/><path d="M56 60h44M88 60v12M78 60v8"/><path class="acento" d="M42 30v8M28 36l5 6M56 36l-5 6"/>'
   };
 

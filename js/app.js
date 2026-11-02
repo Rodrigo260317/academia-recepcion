@@ -823,7 +823,7 @@
         return '<td class="vacio">·</td>';
       }).join('') + '</tr>').join('') + '</tbody></table></div>' +
       '<div class="leyenda"><span class="tag aprobado">90</span> aprobado <span class="tag reintentar">60</span> no aprobó <span class="tag atrasado">ATR</span> atrasado (más de 2 días) <span class="vacio num">·</span> aún no toca</div>' +
-      '<p class="nota-pie">Los módulos 7 al 20 aparecen aquí cuando se publiquen.</p></section>' +
+      '<p class="nota-pie">Los módulos 9 al 20 aparecen aquí cuando se publiquen.</p></section>' +
       '<section class="seccion"><div class="titulo"><h3>Compromisos</h3></div>' + compromisos() + '</section>';
   }
 

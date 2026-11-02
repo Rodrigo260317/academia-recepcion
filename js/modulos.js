@@ -3,31 +3,217 @@
 
 window.PROGRAMA = [
   { n: 1, titulo: 'Teléfono y WhatsApp' },
-  { n: 2, titulo: 'Bienvenida de lujo' },
-  { n: 3, titulo: 'Esperas sin olvidos' },
-  { n: 4, titulo: 'Apertura, cierre y entrega de turno' },
-  { n: 5, titulo: 'Presencia personal' },
-  { n: 6, titulo: 'Lenguaje corporal' },
-  { n: 7, titulo: 'Vocabulario de lujo' },
-  { n: 8, titulo: 'Flujo de la clínica' },
-  { n: 9, titulo: 'Base de pacientes y solicitudes' },
-  { n: 10, titulo: 'Historias clínicas y exámenes' },
-  { n: 11, titulo: 'Pacientes difíciles' },
-  { n: 12, titulo: 'Quejas y Libro de Reclamaciones' },
-  { n: 13, titulo: 'Discreción y privacidad' },
-  { n: 14, titulo: 'Complicación o urgencia' },
-  { n: 15, titulo: 'Paciente VIP' },
+  { n: 2, titulo: 'Esperas sin olvidos' },
+  { n: 3, titulo: 'Complicaciones: nunca sin respuesta' },
+  { n: 4, titulo: 'Primero se paga, sin crédito' },
+  { n: 5, titulo: 'Apertura, cierre y entrega de turno' },
+  { n: 6, titulo: 'Bienvenida de lujo' },
+  { n: 7, titulo: 'Presencia y conducta a la vista' },
+  { n: 8, titulo: 'Lenguaje corporal' },
+  { n: 9, titulo: 'Admisión con DNI y registro completo' },
+  { n: 10, titulo: 'Flujo: paga, firma en tablet y sube' },
+  { n: 11, titulo: 'Decir la verdad con elegancia' },
+  { n: 12, titulo: 'Pacientes difíciles y altercados' },
+  { n: 13, titulo: 'Quejas y Libro de Reclamaciones' },
+  { n: 14, titulo: 'Discreción, cámaras y objetos olvidados' },
+  { n: 15, titulo: 'Paciente VIP y tarjetas' },
   { n: 16, titulo: 'Venta consultiva ética' },
   { n: 17, titulo: 'Agenda, confirmaciones y no-shows' },
-  { n: 18, titulo: 'Cobro sin errores y cierre de caja' },
+  { n: 18, titulo: 'Historias clínicas y exámenes' },
   { n: 19, titulo: 'De la vereda a la cabina' },
-  { n: 20, titulo: 'Experiencia de lujo y equipo' }
+  { n: 20, titulo: 'Un solo equipo, nivel de lujo' }
 ];
 
 window.MODULOS = [
-  // ───────────────────────────── 3
+  // ───────────────────────────── 3 · Complicaciones
   {
-    id: 'm03', n: 3, titulo: 'Esperas sin olvidos', minutos: 20, ilus: 'reloj',
+    id: 'm03', n: 3, titulo: 'Complicaciones: nunca sin respuesta', minutos: 20, ilus: 'alerta',
+    resumen: 'Contestar, registrar y pasar a la doctora el mismo día.',
+    pasos: [
+      {
+        tipo: 'escena', ilus: 'alerta',
+        titulo: 'Una complicación nunca se queda sin respuesta',
+        texto: 'Una molestia después de un procedimiento puede pasar. Lo que no puede pasar es que la paciente se sienta abandonada: que no le contesten, que la bloqueen o que le digan «es normal» sin que la vea la doctora. Ya pasó, y terminó en multas que costaron decenas de veces lo que valía el procedimiento.',
+        porque: 'Ante una complicación se contiene a la paciente, se resuelve, y nunca se la abandona ni se deja de contestar el teléfono.'
+      },
+      {
+        tipo: 'caso', real: '20/08/2026', titulo: '¿Qué harías?', ilus: 'whatsapp',
+        situacion: 'Una paciente escribe varias veces por WhatsApp contando una molestia después de su procedimiento. Alguien propone bloquearla porque «ya está insistiendo mucho».',
+        opciones: [
+          { texto: 'La bloqueo: ya se le respondió una vez.', ok: false, nota: 'Así pasó: a una paciente complicada la bloquearon y no le contestaban. Terminó en abogados y multas, «16 000 soles por un procedimiento de 300».' },
+          { texto: 'Le respondo en ese momento con calma, registro lo que cuenta y le paso el caso a la doctora el mismo día.', ok: true, nota: 'Exacto: se la contiene, se registra y la ve la doctora. Responder a tiempo también es parte del trabajo del counter.' },
+          { texto: 'Le digo que es normal y que espere unos días.', ok: false, nota: 'Solo la doctora puede decir si es normal, y después de verla.' }
+        ]
+      },
+      {
+        tipo: 'caso', real: '20/08/2026', titulo: '¿Qué harías?', ilus: 'agenda',
+        situacion: 'Llega una paciente por una complicación. Otra profesional te pide su historia para atenderla ella misma, sin que pase por la doctora.',
+        opciones: [
+          { texto: 'Se la doy: ella también sabe.', ok: false, nota: 'Toda complicación pasa con la doctora, sin excepción. Así lo pidió la dirección.' },
+          { texto: 'Le explico con amabilidad que toda complicación pasa con la doctora, y le aviso a la doctora en ese momento.', ok: true, nota: 'Bien. Ya pasó una vez y el counter lo evitó: eso es cuidar a la paciente y a la clínica.' },
+          { texto: 'Le digo a la paciente que vuelva otro día.', ok: false, nota: 'Una paciente con complicación se atiende ese mismo día.' }
+        ]
+      },
+      {
+        tipo: 'tarjetas', titulo: 'El protocolo de la complicación',
+        tarjetas: [
+          { ilus: 'alerta', titulo: 'Reconócela', texto: 'Si una paciente escribe o llama por dolor, hinchazón, moretones, enrojecimiento o un «algo no está bien» después de un procedimiento, es una posible complicación. Va primero que todo lo demás.' },
+          { ilus: 'whatsapp', titulo: 'Contesta y contén', texto: 'Respondes en el momento, con calma y sin minimizar. Nada de «es normal» ni de discutir.', frase: '«Lamento mucho que se sienta así. Le aviso ahora mismo a la doctora y le escribo en 15 minutos con la hora en que la verá.»' },
+          { ilus: 'telefono', titulo: 'Pásala a la doctora', texto: 'El mismo día y a la doctora: nadie más decide ni atiende una complicación por su cuenta.' },
+          { ilus: 'agenda', titulo: 'Regístralo', texto: 'Fecha, hora, qué dijo la paciente con sus palabras y a quién le avisaste. Sin adjetivos, solo hechos.' },
+          { ilus: 'reloj', titulo: 'Haz el seguimiento', texto: 'Cumples la hora que prometiste y al día siguiente la llamas para saber cómo sigue. Nunca se la deja en visto ni se la bloquea.' }
+        ]
+      },
+      {
+        tipo: 'ordenar', titulo: 'Ordena la respuesta',
+        consigna: 'Ordena qué haces cuando una paciente reporta una molestia.',
+        pasos: [
+          'Le respondo de inmediato y con calma',
+          'Registro lo que cuenta, con fecha y hora',
+          'Le aviso a la doctora el mismo día',
+          'Le confirmo a la paciente cuándo la verá',
+          'La llamo después para saber cómo sigue'
+        ]
+      },
+      {
+        tipo: 'sino', titulo: 'Frases que sí y frases que no',
+        consigna: 'Toca «Sí» si la frase va con el protocolo y «No» si no va.',
+        frases: [
+          { texto: '«Eso es normal, no se preocupe.»', si: false, nota: 'Solo la doctora lo puede decir, después de verla.' },
+          { texto: '«Lamento mucho que se sienta así; ahora mismo le aviso a la doctora.»', si: true, nota: 'Contiene y actúa.' },
+          { texto: '«La doctora está ocupada, escriba mañana.»', si: false, nota: 'Una complicación se atiende el mismo día.' },
+          { texto: '«Le escribo en 15 minutos con la hora en que la verá la doctora.»', si: true, nota: 'Compromiso concreto, y luego se cumple.' },
+          { texto: '«Eso le pasa por no seguir las indicaciones.»', si: false, nota: 'Nunca se culpa a la paciente.' }
+        ]
+      },
+      {
+        tipo: 'vf', titulo: 'Verdadero o falso',
+        afirmaciones: [
+          { texto: 'Si una paciente insiste mucho, se la puede bloquear.', v: false, nota: 'Nunca. Es justo lo que convirtió una molestia en multas.' },
+          { texto: 'Una complicación mal atendida puede costar muchas veces lo que se cobró por el procedimiento.', v: true, nota: 'Ya pasó: multas de decenas de miles de soles por un procedimiento de 300.' },
+          { texto: 'Si la doctora está ocupada, otra profesional puede atender la complicación.', v: false, nota: 'Toda complicación pasa con la doctora.' }
+        ]
+      }
+    ],
+    evaluacion: [
+      { p: 'Una paciente escribe por una molestia después de su procedimiento. ¿Qué haces primero?', opciones: ['Le respondo de inmediato y con calma', 'Espero a terminar mis pendientes', 'Le digo que es normal'], correcta: 0 },
+      { p: '¿Quién atiende una complicación?', opciones: ['Cualquier profesional disponible', 'La doctora, el mismo día', 'Recepción, con lo que sepa'], correcta: 1 },
+      { p: 'La paciente insiste con muchos mensajes.', opciones: ['La bloqueo', 'La dejo en visto un rato', 'Le contesto, la contengo y le aviso a la doctora'], correcta: 2 },
+      { p: '¿Qué se registra?', opciones: ['Nada, si se resolvió', 'Fecha, hora, lo que dijo y a quién se avisó', 'Solo el nombre'], correcta: 1 },
+      { p: '¿Qué frase NO se usa?', opciones: ['«Eso es normal, no se preocupe.»', '«Le aviso ahora mismo a la doctora.»', '«La llamo mañana para saber cómo sigue.»'], correcta: 0 },
+      { p: '¿Por qué importa tanto?', opciones: ['Por la imagen en redes nada más', 'Porque una complicación mal atendida termina en multas que cuestan muchas veces el procedimiento, y porque la paciente lo merece', 'No importa tanto'], correcta: 1 },
+      { p: 'Otra profesional pide la historia para atender la complicación ella misma.', opciones: ['Se la doy', 'Le explico que pasa con la doctora y le aviso a la doctora', 'Le digo a la paciente que vuelva otro día'], correcta: 1 },
+      { p: 'Después de que la vio la doctora…', opciones: ['Se cierra el caso', 'Se la llama al día siguiente para saber cómo sigue', 'Se espera a que ella escriba'], correcta: 1 }
+    ],
+    compromisos: [
+      'Nunca dejaré sin respuesta a una paciente con una molestia',
+      'Pasaré toda complicación a la doctora el mismo día',
+      'Registraré cada caso con fecha, hora y lo que se dijo',
+      'Haré el seguimiento al día siguiente'
+    ]
+  },
+
+  // ───────────────────────────── 4 · Cobro primero
+  {
+    id: 'm04', n: 4, titulo: 'Primero se paga, sin crédito', minutos: 20, ilus: 'pos',
+    resumen: 'Autorización, pago y recién sale el producto. Con elegancia.',
+    pasos: [
+      {
+        tipo: 'escena', ilus: 'pos',
+        titulo: 'Primero se paga, después se prepara',
+        texto: 'Se han perdido productos preparados sin pago y tratamientos que se fueron sin cobrar: una paciente se fue debiendo unos 5 000 soles con un «no me pasa la tarjeta», y en créditos se llegó a perder hasta 10 000 dólares. El nuevo orden protege a la clínica y también a la paciente: autorización, pago y recién sale el producto.',
+        porque: 'Pedir el pago primero no es desconfianza: es el orden de una clínica de lujo, explicado con elegancia.'
+      },
+      {
+        tipo: 'caso', real: '02/09/2026', titulo: '¿Qué falló?', ilus: 'pos',
+        situacion: 'Se prepararon cuatro enzimas para una paciente que al final dijo que no se las ponía y se fue. Una quedó preparada sin aplicar, alguien la guardó y apareció dos meses después.',
+        opciones: [
+          { texto: 'La paciente cambió de opinión: no se podía hacer nada.', ok: false, nota: 'Sí se podía: si el producto sale solo con el pago confirmado, no se pierde.' },
+          { texto: 'El producto se preparó antes del pago. Desde ahora sale solo con la conformidad de pago.', ok: true, nota: 'Exacto: primero se paga abajo, y con el pago confirmado farmacia prepara.' },
+          { texto: 'Farmacia debió esconderlo mejor.', ok: false, nota: 'Nada se esconde: lo que se prepara sin pago es una pérdida para la clínica.' }
+        ]
+      },
+      {
+        tipo: 'caso', real: '02/09/2026', titulo: '¿Qué harías?', ilus: 'pos',
+        situacion: 'Al terminar el procedimiento, la paciente dice que su tarjeta no pasa y que vuelve otro día a pagar.',
+        opciones: [
+          { texto: 'Le digo que no se preocupe, que pague la próxima vez.', ok: false, nota: 'Así se fue una paciente con unos 5 000 soles y nunca pagó.' },
+          { texto: 'Eso se evita antes: se cobra antes del procedimiento y, si la tarjeta no pasa, se ofrecen otra tarjeta, transferencia o efectivo.', ok: true, nota: 'Bien: el plan B se resuelve antes de empezar, nunca con la paciente ya en la puerta.' },
+          { texto: 'Le doy crédito porque es paciente frecuente.', ok: false, nota: 'Sin crédito, para nadie.' }
+        ]
+      },
+      {
+        tipo: 'caso', real: '02/09/2026', titulo: '¿Qué harías?', ilus: 'reloj',
+        situacion: 'La doctora indica un bótox a las 9:00 y manda a la paciente a pagar. Abajo hay cola, nadie le prioriza el cobro ni el consentimiento, y la paciente vuelve recién a las 12:00 para una aplicación de 15 minutos.',
+        opciones: [
+          { texto: 'Que haga la cola como todas.', ok: false, nota: 'Una derivada de consulta se cobra en minutos: si no, se atrasan la doctora y la paciente.' },
+          { texto: 'Cobro exprés: la atiendo de inmediato, llena el consentimiento en la tablet, aviso a farmacia y sube en minutos.', ok: true, nota: 'Eso es: baja, paga, firma y sube.' },
+          { texto: 'Le digo que suba y pague al final.', ok: false, nota: 'Primero se paga; el orden no cambia, se agiliza.' }
+        ]
+      },
+      {
+        tipo: 'tarjetas', titulo: 'El orden del cobro',
+        tarjetas: [
+          { ilus: 'tablet', titulo: 'Autorización, pago, producto', texto: 'Primero la paciente llena su autorización en la tablet, luego paga, y con el pago confirmado farmacia prepara el producto.' },
+          { ilus: 'pos', titulo: 'Sin crédito', texto: 'No se da crédito a nadie, ni a pacientes frecuentes. Si no puede pagar todo, se conversa antes de empezar, nunca después.' },
+          { ilus: 'gafete', titulo: 'Pídelo con elegancia', texto: 'Se explica como parte del servicio, no como desconfianza.', frase: '«Para agilizar su atención y por su seguridad, primero registramos su autorización y el pago; así farmacia le tiene todo listo al instante.»' },
+          { ilus: 'pos', titulo: 'Si la tarjeta no pasa', texto: 'Antes del procedimiento: otra tarjeta, transferencia o efectivo. Nunca se deja ir a la paciente con el cobro abierto.' },
+          { ilus: 'reloj', titulo: 'Cobro exprés', texto: 'A la paciente que baja de consulta con un procedimiento indicado se la atiende primero: paga, firma y sube en minutos.' },
+          { ilus: 'manos', titulo: 'Algo extra en cabina', texto: 'Si en plena atención pide algo más, sube alguien de caja con el POS y cobra ahí mismo, con discreción y sin interrumpir a la doctora.' }
+        ]
+      },
+      {
+        tipo: 'ordenar', titulo: 'Ordena el cobro',
+        consigna: 'Ordena lo que pasa desde que la doctora indica un procedimiento.',
+        pasos: [
+          'La paciente llena su autorización en la tablet',
+          'Paga en caja',
+          'Confirmo el pago',
+          'Aviso a farmacia para que prepare el producto',
+          'La paciente sube al procedimiento'
+        ]
+      },
+      {
+        tipo: 'sino', titulo: 'Frases que sí y frases que no',
+        consigna: 'Toca «Sí» si la frase va con el estándar y «No» si no va.',
+        frases: [
+          { texto: '«Usted pague al final, no se preocupe.»', si: false, nota: 'Primero se paga.' },
+          { texto: '«Para agilizar su atención, primero registramos el pago y farmacia le tiene todo listo.»', si: true, nota: 'Elegante y claro.' },
+          { texto: '«Ya le preparo el producto mientras decide.»', si: false, nota: 'Nada se prepara sin pago confirmado.' },
+          { texto: '«¿Desea intentar con otra tarjeta, transferencia o efectivo?»', si: true, nota: 'El plan B, antes de empezar.' },
+          { texto: '«Si no tiene ahora, me paga la próxima.»', si: false, nota: 'Sin crédito.' }
+        ]
+      },
+      {
+        tipo: 'vf', titulo: 'Verdadero o falso',
+        afirmaciones: [
+          { texto: 'A una paciente frecuente se le puede dar crédito.', v: false, nota: 'Sin crédito, para nadie.' },
+          { texto: 'El producto se prepara solo con el pago confirmado.', v: true, nota: 'Así nada se pierde.' },
+          { texto: 'Pedir el pago primero es una falta de confianza con la paciente.', v: false, nota: 'Es el orden de la clínica, y se explica con elegancia.' }
+        ]
+      }
+    ],
+    evaluacion: [
+      { p: '¿Cuál es el orden correcto?', opciones: ['Producto, pago, autorización', 'Autorización, pago, producto', 'Pago al final'], correcta: 1 },
+      { p: '¿Se puede dar crédito?', opciones: ['Solo a frecuentes', 'No, a nadie', 'Si la doctora no se entera'], correcta: 1 },
+      { p: 'La tarjeta no pasa. ¿Cuándo se resuelve?', opciones: ['Antes del procedimiento, con otra tarjeta, transferencia o efectivo', 'Otro día', 'Al salir'], correcta: 0 },
+      { p: 'Una paciente baja de consulta con un bótox indicado.', opciones: ['Hace la cola normal', 'Cobro exprés: paga, firma y sube en minutos', 'Que pague al final'], correcta: 1 },
+      { p: '¿Cuándo prepara farmacia el producto?', opciones: ['Cuando la paciente llega', 'Con el pago confirmado', 'Cuando la doctora lo pide, sin pago'], correcta: 1 },
+      { p: '¿Cómo se pide el pago?', opciones: ['Con elegancia: es para agilizar y por su seguridad', 'Con desconfianza', 'Sin explicar nada'], correcta: 0 },
+      { p: 'En plena atención la paciente pide una jeringa más.', opciones: ['Que pague al salir', 'Sube alguien de caja con el POS y cobra con discreción', 'No se le vende'], correcta: 1 },
+      { p: 'Un producto preparado y no pagado…', opciones: ['Se guarda para otra', 'Es una pérdida que se evita cobrando primero', 'No importa'], correcta: 1 }
+    ],
+    compromisos: [
+      'Cobraré antes de que se prepare cualquier producto',
+      'No daré crédito a nadie',
+      'Resolveré el plan B antes del procedimiento',
+      'Daré cobro exprés a las pacientes que bajan de consulta'
+    ]
+  },
+
+  // ───────────────────────────── 2 · Esperas
+  {
+    id: 'm02', n: 2, titulo: 'Esperas sin olvidos', minutos: 20, ilus: 'reloj',
     resumen: 'Ninguna paciente esperando sin que alguien lo sepa.',
     pasos: [
       {
@@ -125,7 +311,7 @@ window.MODULOS = [
 
   // ───────────────────────────── 4
   {
-    id: 'm04', n: 4, titulo: 'Apertura, cierre y entrega de turno', minutos: 15, ilus: 'llave',
+    id: 'm05', n: 5, titulo: 'Apertura, cierre y entrega de turno', minutos: 15, ilus: 'llave',
     resumen: 'Como en un hospital: nada se pierde entre un turno y otro.',
     pasos: [
       {
@@ -201,13 +387,13 @@ window.MODULOS = [
 
   // ───────────────────────────── 1
   {
-    id: 'm02', n: 2, titulo: 'Bienvenida de lujo', minutos: 15, ilus: 'timbre',
+    id: 'm06', n: 6, titulo: 'Bienvenida de lujo', minutos: 15, ilus: 'timbre',
     resumen: 'Ponerse de pie, saludar por el nombre, ofrecer algo y acompañar.',
     pasos: [
       {
         tipo: 'escena', ilus: 'timbre',
         titulo: 'La recepción es la primera impresión, y también la última',
-        texto: 'En los primeros segundos una paciente decide cómo se siente en la clínica. En este módulo vas a practicar los gestos que hacen que una llegada se sienta como la de un hotel de lujo, desde la puerta hasta la despedida.',
+        texto: 'Al paciente no lo atiende «la empresa»: lo atiende quien contesta el teléfono, quien abre la puerta y quien lo recibe. En los primeros segundos decide cómo se siente en la clínica. En este módulo vas a practicar los gestos que hacen que una llegada se sienta como la de un hotel de lujo, desde la puerta hasta la despedida.',
         porque: 'Lo que vendemos es servicio, y el servicio es experiencia: desde quien abre la puerta hasta quien despide.'
       },
       {
@@ -398,6 +584,15 @@ window.MODULOS = [
         ]
       },
       {
+        tipo: 'caso', real: '23/09/2026', titulo: '¿Qué harías?', ilus: 'whatsapp',
+        situacion: 'Abres el WhatsApp de una interesada que pregunta por un tratamiento y justo llega una paciente al counter.',
+        opciones: [
+          { texto: 'Lo dejo leído y le respondo cuando se desocupe el counter.', ok: false, nota: 'Abrir y no responder es dejar en visto, y la dirección lo criticó. Cuando nadie responde a tiempo, la interesada se va a otra clínica.' },
+          { texto: 'Le respondo en ese momento «Con gusto, en unos minutos le confirmo» y luego cumplo.', ok: true, nota: 'Bien: un mensaje abierto se responde en ese momento, aunque sea para pedir unos minutos.' },
+          { texto: 'Lo marco como no leído para que lo vea otra.', ok: false, nota: 'Lo que abres, lo respondes tú.' }
+        ]
+      },
+      {
         tipo: 'ordenar', titulo: 'Ordena la llamada',
         consigna: 'Deja los pasos de una llamada en el orden correcto.',
         pasos: [
@@ -439,7 +634,7 @@ window.MODULOS = [
 
   // ───────────────────────────── 3
   {
-    id: 'm05', n: 5, titulo: 'Presencia personal', minutos: 15, ilus: 'espejo',
+    id: 'm07', n: 7, titulo: 'Presencia y conducta a la vista', minutos: 15, ilus: 'espejo',
     resumen: 'De punta en blanco: cabello, maquillaje, uñas, uniforme y accesorios.',
     pasos: [
       {
@@ -447,6 +642,15 @@ window.MODULOS = [
         titulo: 'La presentación es todo',
         texto: 'El counter es lo primero que ve la paciente, y tú eres el counter. Antes de abrir, cada mañana, pasas por este checklist frente al espejo.',
         porque: 'Todo lo bueno te jala, y lo malo también. Si una del equipo se alinea, las demás la siguen.'
+      },
+      {
+        tipo: 'caso', real: '20/08 y 16/09/2026', titulo: '¿Qué ve la paciente?', ilus: 'silla',
+        situacion: 'Una paciente está pagando en el counter. Al lado, alguien del personal come algo detrás del mostrador, y al subir ve por una puerta abierta a otra persona recostada en una camilla con el celular.',
+        opciones: [
+          { texto: 'Nada grave: es un momento de descanso.', ok: false, nota: '«Los pacientes ven igual.» En las zonas que ve la paciente no se come, nadie se recuesta y el celular no está a la vista.' },
+          { texto: 'Que la clínica no la está atendiendo a ella. En el counter no se come mientras una paciente paga, y nadie se recuesta ni usa el celular donde la paciente lo pueda ver.', ok: true, nota: 'Así es: quien paga tiene toda la atención, y el estándar es para todo el personal, no solo el counter.' },
+          { texto: 'Que el personal está cómodo.', ok: false, nota: 'Lo que ve la paciente es descuido. Los descansos se toman fuera de su vista.' }
+        ]
       },
       {
         tipo: 'tarjetas', titulo: 'De punta en blanco',
@@ -519,7 +723,7 @@ window.MODULOS = [
 
   // ───────────────────────────── 4
   {
-    id: 'm06', n: 6, titulo: 'Lenguaje corporal', minutos: 15, ilus: 'manos',
+    id: 'm08', n: 8, titulo: 'Lenguaje corporal', minutos: 15, ilus: 'manos',
     resumen: 'Postura, mirada, sonrisa y entregar todo con las dos manos.',
     pasos: [
       {
