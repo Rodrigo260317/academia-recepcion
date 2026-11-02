@@ -185,6 +185,7 @@ p { margin: 0; }
 .puntos-carrusel i { width: 7px; height: 7px; border-radius: 50%; background: var(--filete); transition: background .2s, width .2s; }
 .puntos-carrusel i.on { background: var(--tinta); width: 20px; border-radius: 4px; }
 
+.real { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; color: var(--gris); }
 .situacion { display: flex; gap: 14px; align-items: center; background: var(--papel); border: 1px solid var(--tinta); border-radius: var(--radio); padding: 16px; margin-top: 16px; }
 .situacion .ilus { width: 64px; height: 64px; flex: none; }
 .situacion p { font-size: 17px; font-weight: 500; }

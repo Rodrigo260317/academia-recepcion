@@ -37,6 +37,24 @@ window.MODULOS = [
         porque: 'Una espera que se explica y se acompaña se perdona. Una espera olvidada no se perdona nunca.'
       },
       {
+        tipo: 'caso', real: '07/10/2026', titulo: '¿Qué falló?', ilus: 'reloj',
+        situacion: 'La doctora mandó a una paciente a la máquina (Morpheus/Exion) y volvió a su consultorio. Dos horas después la paciente seguía sentada esperando y nadie le había dicho nada.',
+        opciones: [
+          { texto: 'La doctora debió vigilarla.', ok: false, nota: 'La doctora no puede atender a sus pacientes y vigilar a las que esperan a la vez. Ese seguimiento es de recepción.' },
+          { texto: 'Nadie en recepción era responsable de esa paciente ni hizo la ronda.', ok: true, nota: 'Exacto: cada paciente que espera tiene una responsable, y la ronda cada 15 minutos la habría encontrado a los pocos minutos.' },
+          { texto: 'La paciente debió avisar.', ok: false, nota: 'Una paciente de lujo no tiene que reclamar para que la atiendan.' }
+        ]
+      },
+      {
+        tipo: 'caso', real: '07/10/2026', titulo: '¿Qué harías?', ilus: 'tablet',
+        situacion: 'Una paciente pasa a la cabina a llenar el consentimiento y se demora 40 minutos llamando a un familiar. Mientras tanto, la cabina está ocupada y la agenda se atrasa.',
+        opciones: [
+          { texto: 'Esperar a que termine: es su derecho leerlo con calma.', ok: false, nota: 'Puede leerlo con calma, pero no en la cabina: así se atrasa todo el día.' },
+          { texto: 'Que llene el consentimiento digital en recepción, con la tablet, mientras espera, y ayudarla si tiene dudas.', ok: true, nota: 'Es lo acordado: el consentimiento se llena en recepción y la cabina queda libre para el procedimiento.' },
+          { texto: 'Pedirle que lo firme sin leer para avanzar.', ok: false, nota: 'Nunca. Lo lee con calma, pero en recepción.' }
+        ]
+      },
+      {
         tipo: 'tarjetas', titulo: 'Las reglas de la espera',
         tarjetas: [
           { ilus: 'agenda', titulo: 'Cada paciente tiene dueña', texto: 'Al registrar la llegada anotas la hora y quién la va a seguir. Toda paciente que está en sala o en cabina tiene una responsable en recepción.' },
@@ -117,6 +135,15 @@ window.MODULOS = [
         porque: 'Tener más personas en el counter solo sirve si nada se pierde entre una y otra.'
       },
       {
+        tipo: 'caso', real: '07/10/2026', titulo: '¿Qué faltó?', ilus: 'agenda',
+        situacion: 'Entra una queja, se resuelve, y a la semana nadie sabe qué pasó, ni cuántas llamadas se perdieron ese día, ni quién quedó en devolverlas.',
+        opciones: [
+          { texto: 'Nada: si se resolvió, no hace falta anotarlo.', ok: false, nota: 'Si no se anota, no se aprende. La dirección pidió una bitácora de ocurrencias con estadística.' },
+          { texto: 'Un cierre de turno por escrito: llamadas que entraron, contestadas y pendientes, y las ocurrencias del día.', ok: true, nota: 'Eso es: como en un hospital, nada se pierde entre un turno y otro. Por eso el cierre se registra en esta plataforma.' },
+          { texto: 'Que el Admin lo pregunte cada día.', ok: false, nota: 'La entrega es responsabilidad de quien cierra el turno.' }
+        ]
+      },
+      {
         tipo: 'tarjetas', titulo: 'Tres momentos',
         tarjetas: [
           { ilus: 'llave', titulo: 'Apertura (antes de las 8:00)', texto: 'Los tres teléfonos con el volumen alto y sin desvío, y el mensaje de «fuera de horario» desactivado. Revisas la agenda del día, las pacientes VIP y las llamadas y WhatsApp pendientes del día anterior. El counter, ordenado.' },
@@ -182,6 +209,15 @@ window.MODULOS = [
         titulo: 'La recepción es la primera impresión, y también la última',
         texto: 'En los primeros segundos una paciente decide cómo se siente en la clínica. En este módulo vas a practicar los gestos que hacen que una llegada se sienta como la de un hotel de lujo, desde la puerta hasta la despedida.',
         porque: 'Lo que vendemos es servicio, y el servicio es experiencia: desde quien abre la puerta hasta quien despide.'
+      },
+      {
+        tipo: 'caso', real: '02/09 y 23/09/2026', titulo: '¿Qué harías?', ilus: 'puerta',
+        situacion: 'Desde el counter ves llegar a una paciente en su auto. El valet y el vigilante están sentados mirando el celular y nadie sale a recibirla.',
+        opciones: [
+          { texto: 'No es mi área: yo la saludo cuando entre.', ok: false, nota: 'Si al llegar nadie la saluda, la experiencia ya empezó mal. La recepción empieza en la vereda.' },
+          { texto: 'Aviso de inmediato a la puerta para que salgan a recibirla y abran, y la espero de pie para saludarla por su nombre.', ok: true, nota: 'Así es: «Buenos días, señora», la puerta abierta y el counter de pie. Todo el equipo, desde el valet, da la misma calidez.' },
+          { texto: 'Lo comento después en el grupo.', ok: false, nota: 'La paciente ya llegó. Se actúa en el momento y luego se conversa en privado.' }
+        ]
       },
       {
         tipo: 'tarjetas', titulo: 'De la puerta a la despedida',
@@ -277,6 +313,24 @@ window.MODULOS = [
         titulo: 'Un teléfono que no se contesta es una paciente que se va',
         texto: 'Cuando nadie contesta, la paciente no piensa que estamos ocupadas: piensa que no nos importa. Esa llamada puede ser una cita, una venta o una urgencia. En este módulo vas a contestar una llamada de verdad, contra el reloj.',
         porque: 'Una complicación se contiene, se resuelve y nunca se deja de contestar el teléfono.'
+      },
+      {
+        tipo: 'caso', real: '23/09/2026', titulo: '¿Qué pasó aquí?', ilus: 'telefono',
+        situacion: 'A las 8:10 un doctor llamó a los fijos y al celular de la clínica y nadie contestó. Encima, salió el mensaje de «fuera de horario» con la clínica abierta. ¿Cuál fue la causa de fondo?',
+        opciones: [
+          { texto: 'Mala suerte: justo estaban todas ocupadas.', ok: false, nota: 'No fue un día malo: la misma queja salió en tres reuniones (16/09, 23/09 y 07/10).' },
+          { texto: 'Una costumbre: el volumen bajo, el desvío al celular y nadie revisando el mensaje automático al abrir.', ok: true, nota: 'Exacto. Es una costumbre de años que aprenden las nuevas, y se corta con un estándar: volumen alto, sin desvíos y la apertura revisada antes de las 8:00.' },
+          { texto: 'Que el doctor llamó demasiado temprano.', ok: false, nota: 'A las 8:10 la clínica está abierta. Además, los pacientes mayores no usan WhatsApp: llaman al fijo que sale en la web.' }
+        ]
+      },
+      {
+        tipo: 'caso', real: '16/09/2026', titulo: '¿Qué harías?', ilus: 'telefono',
+        situacion: 'Es tu primera semana. Una compañera te dice: «Bájale el volumen al teléfono, así no molesta a las pacientes de la sala».',
+        opciones: [
+          { texto: 'Le hago caso: ella conoce la clínica.', ok: false, nota: 'Así se pasa la costumbre de una a otra. La dirección pidió erradicarla.' },
+          { texto: 'Le digo con amabilidad que el estándar es volumen alto y contestar antes del tercer timbre, y lo dejo así.', ok: true, nota: 'Bien. Lo bueno también se contagia: si una se alinea, las demás la siguen.' },
+          { texto: 'Lo desvío a mi celular para no perder llamadas.', ok: false, nota: 'Los teléfonos de la clínica no se desvían a celulares personales.' }
+        ]
       },
       {
         tipo: 'tarjetas', titulo: 'El estándar telefónico',

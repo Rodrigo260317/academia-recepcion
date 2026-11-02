@@ -416,7 +416,8 @@
     },
 
     caso(p, c, { listo }) {
-      c.innerHTML = '<h2 class="paso-titulo">' + esc(p.titulo) + '</h2>' +
+      c.innerHTML = (p.real ? '<p class="real"><span class="tag hoy">PASÓ EN LA CLÍNICA</span><span class="num">' + esc(p.real) + '</span></p>' : '') +
+        '<h2 class="paso-titulo">' + esc(p.titulo) + '</h2>' +
         '<div class="situacion">' + (p.ilus ? Ilus.svg(p.ilus) : '') + '<p>' + esc(p.situacion) + '</p></div>' +
         '<div class="opciones">' + barajar(p.opciones.length).map(k => '<button class="opcion" data-k="' + k + '">' + esc(p.opciones[k].texto) + '</button>').join('') + '</div>';
       listo(false, 'Elige una opción');
