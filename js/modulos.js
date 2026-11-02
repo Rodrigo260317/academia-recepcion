@@ -37,6 +37,10 @@ window.MODULOS = [
         porque: 'Ante una complicación se contiene a la paciente, se resuelve, y nunca se la abandona ni se deja de contestar el teléfono.'
       },
       {
+        tipo: 'video', titulo: 'Mira el video: nunca sin respuesta', archivo: 'media/m03-complicaciones.mp4', poster: 'media/m03-complicaciones.jpg',
+        fijate: ['Contestar en el momento y con calma', 'Registrar fecha, hora y lo que contó', 'Pasarla a la doctora el mismo día', 'Llamar al día siguiente para saber cómo sigue']
+      },
+      {
         tipo: 'caso', real: '20/08/2026', titulo: '¿Qué harías?', ilus: 'whatsapp',
         situacion: 'Una paciente escribe varias veces por WhatsApp contando una molestia después de su procedimiento. Alguien propone bloquearla porque «ya está insistiendo mucho».',
         opciones: [
@@ -123,6 +127,10 @@ window.MODULOS = [
         titulo: 'Primero se paga, después se prepara',
         texto: 'Se han perdido productos preparados sin pago y tratamientos que se fueron sin cobrar: una paciente se fue debiendo unos 5 000 soles con un «no me pasa la tarjeta», y en créditos se llegó a perder hasta 10 000 dólares. El nuevo orden protege a la clínica y también a la paciente: autorización, pago y recién sale el producto.',
         porque: 'Pedir el pago primero no es desconfianza: es el orden de una clínica de lujo, explicado con elegancia.'
+      },
+      {
+        tipo: 'video', titulo: 'Mira el video: primero se paga', archivo: 'media/m04-cobro.mp4', poster: 'media/m04-cobro.jpg',
+        fijate: ['Autorización, pago y recién ahí el producto', 'Sin crédito para nadie', 'El plan B se resuelve antes de empezar', 'Se pide con elegancia']
       },
       {
         tipo: 'caso', real: '02/09/2026', titulo: '¿Qué falló?', ilus: 'pos',
@@ -223,6 +231,10 @@ window.MODULOS = [
         porque: 'Una espera que se explica y se acompaña se perdona. Una espera olvidada no se perdona nunca.'
       },
       {
+        tipo: 'video', titulo: 'Mira el video: ninguna paciente olvidada', archivo: 'media/m02-esperas.mp4', poster: 'media/m02-esperas.jpg',
+        fijate: ['Cada paciente que espera tiene una responsable', 'Ronda cada 15 minutos', 'Tiempo real de espera, y se vuelve a avisar', 'Consentimiento en recepción, no en la cabina']
+      },
+      {
         tipo: 'caso', real: '07/10/2026', titulo: '¿Qué falló?', ilus: 'reloj',
         situacion: 'La doctora mandó a una paciente a la máquina (Morpheus/Exion) y volvió a su consultorio. Dos horas después la paciente seguía sentada esperando y nadie le había dicho nada.',
         opciones: [
@@ -321,6 +333,10 @@ window.MODULOS = [
         porque: 'Tener más personas en el counter solo sirve si nada se pierde entre una y otra.'
       },
       {
+        tipo: 'video', titulo: 'Mira el video: lo que no se entrega se pierde', archivo: 'media/m05-turno.mp4', poster: 'media/m05-turno.jpg',
+        fijate: ['Apertura antes de las 8:00: teléfonos, mensaje automático, agenda', 'Cada pendiente con su hora', 'Cierre: llamadas y WhatsApp contados', 'Entrega de palabra y por escrito']
+      },
+      {
         tipo: 'caso', real: '07/10/2026', titulo: '¿Qué faltó?', ilus: 'agenda',
         situacion: 'Entra una queja, se resuelve, y a la semana nadie sabe qué pasó, ni cuántas llamadas se perdieron ese día, ni quién quedó en devolverlas.',
         opciones: [
@@ -395,6 +411,10 @@ window.MODULOS = [
         titulo: 'La recepción es la primera impresión, y también la última',
         texto: 'Al paciente no lo atiende «la empresa»: lo atiende quien contesta el teléfono, quien abre la puerta y quien lo recibe. En los primeros segundos decide cómo se siente en la clínica. En este módulo vas a practicar los gestos que hacen que una llegada se sienta como la de un hotel de lujo, desde la puerta hasta la despedida.',
         porque: 'Lo que vendemos es servicio, y el servicio es experiencia: desde quien abre la puerta hasta quien despide.'
+      },
+      {
+        tipo: 'video', titulo: 'Mira el video: la bienvenida de lujo', archivo: 'media/m06-bienvenida.mp4', poster: 'media/m06-bienvenida.jpg',
+        fijate: ['El valet sale a recibir y abre la puerta', 'De pie, a los ojos, por su nombre', 'Agua, café o una infusión sin que lo pida', 'Acompaña y despide con su próxima cita']
       },
       {
         tipo: 'caso', real: '02/09 y 23/09/2026', titulo: '¿Qué harías?', ilus: 'puerta',
@@ -648,6 +668,10 @@ window.MODULOS = [
         porque: 'Todo lo bueno te jala, y lo malo también. Si una del equipo se alinea, las demás la siguen.'
       },
       {
+        tipo: 'video', titulo: 'Mira el video: la presentación es todo', archivo: 'media/m07-presencia.mp4', poster: 'media/m07-presencia.jpg',
+        fijate: ['Moño o trenza, maquillaje natural, uñas claras', 'Uniforme impecable y gafete visible', 'Celular guardado', 'Donde ve la paciente: no se come ni se recuesta nadie']
+      },
+      {
         tipo: 'caso', real: '20/08 y 16/09/2026', titulo: '¿Qué ve la paciente?', ilus: 'silla',
         situacion: 'Una paciente está pagando en el counter. Al lado, alguien del personal come algo detrás del mostrador, y al subir ve por una puerta abierta a otra persona recostada en una camilla con el celular.',
         opciones: [
@@ -735,6 +759,10 @@ window.MODULOS = [
         titulo: 'El cuerpo habla antes que tú',
         texto: 'En un buen hotel de Cusco todo se entrega con las dos manos: la cuenta, la llave, el vuelto. En algunas culturas, entregar con una sola mano es una falta de respeto. Por eso los hoteles lo tienen estandarizado, y nosotras también lo vamos a tener.',
         porque: 'La recepcionista ideal mira a los ojos, no hacia abajo, y transmite calidez, confianza y amabilidad sin decir una palabra.'
+      },
+      {
+        tipo: 'video', titulo: 'Mira el video: tu cuerpo habla', archivo: 'media/m08-lenguaje.mp4', poster: 'media/m08-lenguaje.jpg',
+        fijate: ['Todo con las dos manos', 'Postura erguida y de frente', 'A los ojos, no a la pantalla', 'Si está sentada, a su altura']
       },
       {
         tipo: 'tarjetas', titulo: 'Seis gestos que se ven',
