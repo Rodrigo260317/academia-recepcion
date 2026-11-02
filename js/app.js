@@ -203,6 +203,11 @@
       '<button data-turno="apertura" class="' + (ap ? 'hecho' : '') + '"><b>Apertura</b><span>' + (ap ? 'Registrada' : 'Antes de las 8:00') + '</span></button>' +
       '<button data-turno="cierre" class="' + (ci ? 'hecho' : '') + '"><b>Cierre</b><span>' + (ci ? ci.contestadas + ' de ' + ci.entrantes + ' llamadas' : 'Llamadas y pendientes') + '</span></button>' +
       '</div></section>' +
+      '<section class="seccion"><div class="titulo"><h3>Bitácora de ocurrencias</h3><span class="rotulo">' + pendientesBitacora() + ' pendiente' + (pendientesBitacora() === 1 ? '' : 's') + '</span></div>' +
+      '<p class="nota-pie">Quejas, demoras, errores o algo olvidado: fecha, hora y hechos, sin adjetivos. Así la que entra al turno y el médico ya lo saben.</p>' +
+      '<div class="turno-dia"><button data-ocurrencia><b>Registrar ocurrencia</b><span>Dos minutos, en el momento</span></button>' +
+      '<a class="boton-enlace" href="guia.html" target="_blank" rel="noopener"><b>Guía de presentación</b><span>Para imprimir o revisar</span></a></div>' +
+      listaBitacora((st.datos.bitacora || []).slice().sort(ordenBitacora).slice(0, 4), yo) + '</section>' +
       '<section class="seccion"><div class="titulo"><h3>Tablero de módulos</h3><span class="rotulo">Lun y jue</span></div><ul class="tablero">' +
       PROGRAMA.map(pg => {
         const e = estadoModulo(yo, pg.n);
@@ -225,6 +230,8 @@
     });
     app.querySelectorAll('[data-turno]').forEach(b => b.addEventListener('click', () => vistaTurno(b.dataset.turno)));
     app.querySelector('[data-mipin]').addEventListener('click', vistaMiPin);
+    app.querySelector('[data-ocurrencia]').addEventListener('click', () => vistaOcurrencia());
+    enlazarBitacora(app);
     app.querySelector('[data-salir]').addEventListener('click', () => { Datos.salir(); st.perfil = null; ir('#/'); });
   }
 
@@ -307,6 +314,72 @@
         st.datos = r.datos;
         toast(momento === 'apertura' ? 'Apertura registrada' : 'Cierre registrado');
         ir('#/inicio', true);
+      });
+    });
+  }
+
+  // ───────────── bitácora de ocurrencias
+  const TIPOS_OCURRENCIA = ['Queja', 'Demora', 'Error de registro o cobro', 'Complicación reportada', 'Incidente en sala', 'Objeto olvidado', 'Otro'];
+  const ordenBitacora = (a, b) => (b.fecha + b.hora).localeCompare(a.fecha + a.hora);
+  const pendientesBitacora = () => (st.datos.bitacora || []).filter(b => b.estado === 'pendiente').length;
+
+  function listaBitacora(filas, yo) {
+    if (!filas.length) return '<div class="vacio-estado">Sin ocurrencias registradas. Cuando pase algo, regístralo en el momento.</div>';
+    return '<ul class="tablero">' + filas.map(b => {
+      const editable = st.perfil.rol === 'admin' || b.usuario === yo;
+      return '<li style="grid-template-columns:1fr auto"' + (editable ? ' class="abrible" data-editar="' + esc(b.id) + '" tabindex="0" role="button"' : '') + '>' +
+        '<span><span class="nombre">' + esc(b.tipo) + '</span>' +
+        '<span class="fecha">' + fechaCorta(b.fecha) + (b.hora ? ' · ' + esc(b.hora) : '') + ' · ' + esc(nombreDe(b.usuario)) + '</span>' +
+        '<span class="nota-pie" style="display:block;margin-top:4px">' + esc(b.hechos) + '</span>' +
+        (b.resolucion ? '<span class="nota-pie" style="display:block;margin-top:2px"><b>Qué se hizo:</b> ' + esc(b.resolucion) + '</span>' : '') + '</span>' +
+        (b.estado === 'pendiente' ? '<span class="tag atrasado">PEND</span>' : '<span class="tag aprobado">OK</span>') + '</li>';
+    }).join('') + '</ul>';
+  }
+
+  function enlazarBitacora(raiz) {
+    raiz.querySelectorAll('[data-editar]').forEach(el => {
+      const abrir = () => vistaOcurrencia((st.datos.bitacora || []).find(b => b.id === el.dataset.editar));
+      el.addEventListener('click', abrir);
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(); } });
+    });
+  }
+
+  function vistaOcurrencia(previo) {
+    const p = previo || {};
+    const ahora = new Date();
+    const volver = () => ir(st.perfil.rol === 'admin' ? '#/admin' : '#/inicio', true);
+    app.innerHTML = '<div class="leccion"><div class="barra-leccion"><div class="contenedor fila"><button class="cerrar" data-cerrar aria-label="Volver">' + icoX() + '</button>' +
+      '<strong>' + (previo ? 'Actualizar ocurrencia' : 'Registrar ocurrencia') + '</strong></div></div>' +
+      '<main class="contenedor cuerpo-leccion entra"><h2 class="paso-titulo">¿Qué pasó?</h2>' +
+      '<p class="paso-sub">Solo hechos, sin adjetivos ni opiniones. Sin nombres de pacientes: usa el número de historia o las iniciales.</p>' +
+      '<form class="form" id="f-oc"><div class="campos">' +
+      '<div class="campo"><label for="o-fecha">Fecha</label><input class="num" id="o-fecha" type="date" max="' + hoy() + '" value="' + esc(p.fecha || hoy()) + '"></div>' +
+      '<div class="campo"><label for="o-hora">Hora</label><input class="num" id="o-hora" type="time" value="' + esc(p.hora || pad(ahora.getHours()) + ':' + pad(ahora.getMinutes())) + '"></div></div>' +
+      '<div class="campo"><label for="o-tipo">Tipo</label><select id="o-tipo">' + TIPOS_OCURRENCIA.map(t => '<option' + (t === p.tipo ? ' selected' : '') + '>' + esc(t) + '</option>').join('') + '</select></div>' +
+      '<div class="campo"><label for="o-hechos">Hechos</label><textarea id="o-hechos" maxlength="2000" placeholder="Ej.: HC 1234 esperó 50 min para su sesión; se le avisó a las 10:20 y a las 10:40.">' + esc(p.hechos || '') + '</textarea></div>' +
+      '<div class="campo"><label for="o-res">Cómo se resolvió o qué se hizo</label><textarea id="o-res" maxlength="2000" placeholder="Ej.: se le ofreció café, se avisó a la doctora y pasó a las 10:45.">' + esc(p.resolucion || '') + '</textarea></div>' +
+      '<label class="check"><input type="radio" name="o-estado" value="resuelto"' + (p.estado !== 'pendiente' ? ' checked' : '') + '><span><b>Resuelto</b></span></label>' +
+      '<label class="check"><input type="radio" name="o-estado" value="pendiente"' + (p.estado === 'pendiente' ? ' checked' : '') + '><span><b>Queda pendiente</b>: lo ve la que entra al turno y el Admin</span></label>' +
+      '<p class="msg-error" role="alert"></p></form></main>' +
+      '<div class="pie-leccion"><div class="contenedor"><button class="btn" data-guardar>' + (previo ? 'Actualizar' : 'Guardar ocurrencia') + '</button></div></div></div>';
+    window.scrollTo(0, 0);
+    app.querySelector('[data-cerrar]').addEventListener('click', volver);
+    app.querySelector('[data-guardar]').addEventListener('click', async e => {
+      const f = app.querySelector('#f-oc');
+      const msg = f.querySelector('.msg-error');
+      const datos = {
+        id: p.id || '', fecha: f.querySelector('#o-fecha').value, hora: f.querySelector('#o-hora').value,
+        tipo: f.querySelector('#o-tipo').value, hechos: f.querySelector('#o-hechos').value.trim(),
+        resolucion: f.querySelector('#o-res').value.trim(), estado: f.querySelector('input[name=o-estado]:checked').value
+      };
+      if (!datos.fecha) { msg.textContent = 'Indica la fecha.'; return; }
+      if (datos.hechos.length < 10) { msg.textContent = 'Cuenta los hechos en una o dos frases.'; return; }
+      await guardando(e.currentTarget, async () => {
+        const r = await Datos.guardarOcurrencia(datos);
+        if (!r.ok) { msg.textContent = r.error; return; }
+        st.datos = r.datos;
+        toast(previo ? 'Ocurrencia actualizada' : 'Ocurrencia registrada');
+        volver();
       });
     });
   }
@@ -761,7 +834,7 @@
   function vistaAdmin() {
     document.onkeydown = null;
     const h = hoy();
-    const pestanas = [['tablero', 'Tablero'], ['presentacion', 'Presentación'], ['turnos', 'Turnos y llamadas'], ['ranking', 'Recepcionista del mes'], ['pines', 'Usuarios y PIN']];
+    const pestanas = [['tablero', 'Tablero'], ['presentacion', 'Presentación'], ['turnos', 'Turnos y llamadas'], ['bitacora', 'Bitácora'], ['ranking', 'Recepcionista del mes'], ['pines', 'Usuarios y PIN']];
     app.innerHTML = '<div class="admin">' + avisoDemo() +
       '<header class="banda"><div class="contenedor"><div class="fila"><p class="quien"><b>Admin</b> · ' + fechaLarga(h) + '</p>' +
       '<span style="display:flex;gap:8px"><button class="enlace-banda" data-actualizar>Actualizar</button><button class="enlace-banda" data-salir>Salir</button></span></div>' +
@@ -776,7 +849,7 @@
       vistaAdmin();
     });
     const c = app.querySelector('#admin-cuerpo');
-    ({ tablero: adminTablero, presentacion: adminPresentacion, turnos: adminTurnos, ranking: adminRanking, pines: adminPines })[st.vistaAdmin](c);
+    ({ tablero: adminTablero, presentacion: adminPresentacion, turnos: adminTurnos, bitacora: adminBitacora, ranking: adminRanking, pines: adminPines })[st.vistaAdmin](c);
   }
 
   function adminPines(c) {
@@ -829,7 +902,7 @@
         return '<td class="vacio">·</td>';
       }).join('') + '</tr>').join('') + '</tbody></table></div>' +
       '<div class="leyenda"><span class="tag aprobado">90</span> aprobado <span class="tag reintentar">60</span> no aprobó <span class="tag atrasado">ATR</span> atrasado (más de 2 días) <span class="vacio num">·</span> aún no toca</div>' +
-      '<p class="nota-pie">Los módulos 9 al 20 aparecen aquí cuando se publiquen.</p></section>' +
+      '<p class="nota-pie">Los módulos 13 al 20 aparecen aquí cuando se publiquen. La guía de presentación para imprimir está en <a href="guia.html" target="_blank" rel="noopener">guia.html</a>.</p></section>' +
       '<section class="seccion"><div class="titulo"><h3>Compromisos</h3></div>' + compromisos() + '</section>';
   }
 
@@ -901,6 +974,29 @@
         }).join('') + '</ul></div>').join('')
         : '<div class="vacio-estado">Aún no hay registros. Cada recepcionista registra su apertura y su cierre desde su inicio, en «Tu turno de hoy».</div>') +
       '</section>';
+  }
+
+  function adminBitacora(c) {
+    const todas = (st.datos.bitacora || []).slice().sort(ordenBitacora);
+    const desde = sumaDias(hoy(), -29);
+    const mes = todas.filter(b => b.fecha >= desde);
+    const filtro = st.filtroBitacora || '';
+    const porTipo = TIPOS_OCURRENCIA.map(t => [t, mes.filter(b => b.tipo === t).length]).filter(x => x[1]).sort((a, b) => b[1] - a[1]);
+    const max = porTipo.length ? porTipo[0][1] : 1;
+    const lista = todas.filter(b => !filtro || (filtro === 'pendiente' ? b.estado === 'pendiente' : b.tipo === filtro)).slice(0, 40);
+    c.innerHTML = '<div class="resumen"><div><span class="rotulo">Últimos 30 días</span><b>' + mes.length + '</b></div>' +
+      '<div><span class="rotulo">Pendientes</span><b>' + pendientesBitacora() + '</b></div>' +
+      '<div><span class="rotulo">Más frecuente</span><b style="font-size:15px;font-family:var(--sans)">' + (porTipo.length ? esc(porTipo[0][0]) : '—') + '</b></div></div>' +
+      '<section class="seccion"><div class="titulo"><h3>Por tipo</h3><span class="rotulo">30 días</span></div>' +
+      (porTipo.length ? '<ul class="ranking">' + porTipo.map(([t, n]) => '<li><span class="pos">' + n + '</span><span><b>' + esc(t) + '</b><span class="barra"><i style="width:' + Math.round(n / max * 100) + '%"></i></span></span><span class="num">' + Math.round(n / mes.length * 100) + '%</span></li>').join('') + '</ul>'
+        : '<div class="vacio-estado">Aún no hay ocurrencias en los últimos 30 días.</div>') +
+      '<p class="nota-pie">Si un tipo se repite, ese es el tema para reforzar en la próxima capacitación.</p></section>' +
+      '<section class="seccion"><div class="titulo"><h3>Registro</h3><div class="campo" style="min-width:180px"><select id="f-tipo" aria-label="Filtrar">' +
+      [['', 'Todas'], ['pendiente', 'Solo pendientes']].concat(TIPOS_OCURRENCIA.map(t => [t, t])).map(([v, t]) => '<option value="' + esc(v) + '"' + (v === filtro ? ' selected' : '') + '>' + esc(t) + '</option>').join('') +
+      '</select></div></div>' + listaBitacora(lista, st.perfil.usuario) +
+      '<p class="nota-pie">Toca una ocurrencia para completarla o marcarla como resuelta.</p></section>';
+    c.querySelector('#f-tipo').addEventListener('change', e => { st.filtroBitacora = e.target.value; vistaAdmin(); });
+    enlazarBitacora(c);
   }
 
   function adminRanking(c) {

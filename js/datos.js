@@ -66,6 +66,18 @@
       if (previa) Object.assign(previa, fila); else d.turnos.push(fila);
       escribirDemo(d);
     }
+    if (pedido.accion === 'guardarOcurrencia') {
+      d.bitacora = d.bitacora || [];
+      if (!String(pedido.hechos || '').trim() || !pedido.fecha) return { ok: false, error: 'Escribe la fecha y los hechos.' };
+      const fila = {
+        fecha: pedido.fecha, hora: pedido.hora || '', tipo: pedido.tipo, hechos: String(pedido.hechos).trim(),
+        resolucion: String(pedido.resolucion || '').trim(), estado: pedido.estado === 'pendiente' ? 'pendiente' : 'resuelto'
+      };
+      const previa = pedido.id && d.bitacora.find(b => b.id === pedido.id);
+      if (previa) Object.assign(previa, fila);
+      else d.bitacora.push(Object.assign({ id: Date.now().toString(36), usuario: yo.usuario }, fila));
+      escribirDemo(d);
+    }
     if (pedido.accion === 'cambiarPin') {
       if (!/^\d{4}$/.test(String(pedido.nuevo || ''))) return { ok: false, error: 'El PIN debe tener 4 números.' };
       const objetivo = pedido.objetivo || yo.usuario;
@@ -81,7 +93,8 @@
       datos: {
         usuarios: USUARIOS_DEMO.map(({ pin, ...r }) => r), progreso: d.progreso, checklist: d.checklist,
         turnos: yo.rol === 'admin' ? turnos
-          : turnos.map(t => t.usuario === yo.usuario ? t : { fecha: t.fecha, usuario: t.usuario, momento: t.momento })
+          : turnos.map(t => t.usuario === yo.usuario ? t : { fecha: t.fecha, usuario: t.usuario, momento: t.momento }),
+        bitacora: d.bitacora || []
       }
     };
   }
@@ -135,6 +148,10 @@
     },
     guardarTurno(turno) {
       return pedir(Object.assign({ accion: 'guardarTurno', usuario: sesion.usuario, pin: sesion.pin }, turno));
+    },
+    // Sin id registra una ocurrencia nueva; con id la actualiza.
+    guardarOcurrencia(o) {
+      return pedir(Object.assign({ accion: 'guardarOcurrencia', usuario: sesion.usuario, pin: sesion.pin }, o));
     },
     // Sin objetivo cambia el PIN propio; el Admin puede indicar a quién.
     async cambiarPin(nuevo, objetivo) {

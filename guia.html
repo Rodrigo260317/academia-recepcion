@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1A1A1A">
+<meta name="robots" content="noindex">
+<title>Guía de presentación · Academia de Recepción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fondo: #F2F2EF; --papel: #FFFFFF; --tinta: #1A1A1A; --gris: #5A5F66; --filete: #D6D6D1; --senal: #F2B705;
+    --mono: 'JetBrains Mono', ui-monospace, monospace; --sans: 'Albert Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--tinta); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .hoja { max-width: 860px; margin: 0 auto; padding: 0 16px 48px; }
+  .banda { background: var(--tinta); color: #fff; padding: 28px 0 30px; }
+  .banda .hoja { padding-bottom: 0; }
+  .rotulo { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #A9ACB1; margin: 0; }
+  h1 { font-size: clamp(28px, 6vw, 42px); line-height: 1.05; letter-spacing: -.02em; margin: 8px 0 8px; }
+  .banda p.sub { margin: 0; color: #C9CBCF; max-width: 56ch; }
+  .acciones { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--senal); background: var(--senal); color: var(--tinta); border-radius: 10px; padding: 10px 16px; font: 600 15px var(--sans); cursor: pointer; text-decoration: none; }
+  .btn.claro { background: transparent; color: #fff; border-color: #6B6E73; }
+  .fotos { display: grid; grid-template-columns: 1.35fr 1fr; gap: 12px; margin-top: 22px; }
+  .fotos figure { margin: 0; border: 1px solid var(--tinta); border-radius: 14px; overflow: hidden; background: var(--papel); }
+  .fotos img { display: block; width: 100%; height: 230px; object-fit: cover; }
+  .fotos figcaption { font-size: 13px; color: var(--gris); padding: 8px 12px; }
+  h2 { font-size: 20px; margin: 30px 0 4px; letter-spacing: -.01em; }
+  .nota { color: var(--gris); font-size: 14px; margin: 0; }
+  .reglas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .regla { background: var(--papel); border: 1px solid var(--filete); border-left: 4px solid var(--senal); border-radius: 12px; padding: 12px 14px; break-inside: avoid; }
+  .regla b { display: block; font-size: 15px; }
+  .regla span { font-size: 14px; color: #34383D; }
+  .regla .no { display: block; margin-top: 4px; font-size: 13px; color: #A33A2A; }
+  .conducta { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; }
+  .conducta li { background: var(--papel); border: 1px solid var(--filete); border-radius: 12px; padding: 10px 14px; font-size: 15px; break-inside: avoid; }
+  .espejo { margin-top: 14px; border: 1px solid var(--tinta); border-radius: 14px; background: var(--papel); padding: 6px 14px; break-inside: avoid; }
+  .espejo label { display: flex; gap: 12px; align-items: center; padding: 9px 0; border-bottom: 1px dashed var(--filete); font-size: 15px; }
+  .espejo label:last-child { border-bottom: 0; }
+  .espejo input { width: 20px; height: 20px; accent-color: var(--tinta); margin: 0; flex: none; }
+  .pie { margin-top: 28px; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--gris); text-transform: uppercase; }
+  @media (max-width: 640px) {
+    .fotos { grid-template-columns: 1fr; }
+    .fotos img { height: 200px; }
+    .reglas { grid-template-columns: 1fr; }
+  }
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; font-size: 12.5px; }
+    .banda { background: #fff; color: var(--tinta); padding: 0 0 8px; border-bottom: 3px solid var(--tinta); }
+    .banda p.sub { color: var(--gris); }
+    .rotulo { color: var(--gris); }
+    .acciones { display: none; }
+    .hoja { max-width: none; padding: 0; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 15px; margin-top: 14px; }
+    .fotos { margin-top: 10px; }
+    .fotos img { height: 150px; }
+    .reglas { gap: 6px; margin-top: 8px; }
+    .regla { padding: 7px 10px; }
+    .regla span { font-size: 12px; }
+    .conducta { gap: 4px; margin-top: 8px; }
+    .conducta li { padding: 5px 10px; font-size: 12px; }
+    .espejo { margin-top: 8px; padding: 2px 10px; }
+    .espejo label { padding: 4px 0; font-size: 12px; }
+    .pie { margin-top: 10px; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<header class="banda">
+  <div class="hoja">
+    <p class="rotulo">Academia de Recepción · Guía de presentación</p>
+    <h1>De punta en blanco, cada mañana</h1>
+    <p class="sub">El counter es lo primero que ve la paciente, y tú eres el counter. Esta guía es el estándar para las tres recepcionistas: las dos del counter y la de historias.</p>
+    <div class="acciones">
+      <button class="btn" type="button" onclick="window.print()">Imprimir o guardar en PDF</button>
+      <a class="btn claro" href="./">Volver a la Academia</a>
+    </div>
+  </div>
+</header>
+
+<main class="hoja">
+  <div class="fotos">
+    <figure><img src="media/guia-presencia.jpg" alt="Recepcionista de pie con uniforme azul marino, cabello recogido y gafete visible"><figcaption>Uniforme impecable, cabello recogido y gafete a la vista.</figcaption></figure>
+    <figure><img src="media/guia-accesorios.jpg" alt="Ganchos, liga, aretes pequeños de perla, labial y esmalte en tono claro"><figcaption>Lo justo: ganchos discretos, aretes pequeños, tonos claros.</figcaption></figure>
+  </div>
+
+  <h2>El estándar</h2>
+  <p class="nota">Natural, pero completo. Si dudas de algo, elige lo más sobrio.</p>
+  <div class="reglas">
+    <div class="regla"><b>Cabello recogido</b><span>Moño o trenza, pulido y sin mechones sueltos. Ganchos y ligas discretos.</span><span class="no">No va: pelo suelto, aunque esté peinado.</span></div>
+    <div class="regla"><b>Maquillaje completo y natural</b><span>Piel uniforme, cejas definidas y labios. Se retoca a mediodía.</span><span class="no">No va: sin maquillaje o maquillaje de noche.</span></div>
+    <div class="regla"><b>Uñas impecables</b><span>Limpias, de largo corto o medio, en tono nude o claro y sin despostillar.</span><span class="no">No va: colores intensos, diseños o uñas largas.</span></div>
+    <div class="regla"><b>Uniforme completo</b><span>Limpio, planchado y de tu talla, con los zapatos limpios. Si una prenda está gastada, se pide cambio.</span><span class="no">No va: prendas arrugadas, manchadas o de otro color.</span></div>
+    <div class="regla"><b>Gafete visible</b><span>Siempre a la vista sobre el uniforme, para que la paciente sepa con quién habla.</span><span class="no">No va: gafete guardado, volteado o tapado.</span></div>
+    <div class="regla"><b>Accesorios mínimos</b><span>Aretes pequeños, un solo anillo y un reloj discreto.</span><span class="no">No va: nada que cuelgue ni que suene.</span></div>
+    <div class="regla"><b>Aliento y perfume</b><span>Aliento fresco y un perfume suave, o ninguno: hay pacientes sensibles a los olores.</span><span class="no">No va: perfume intenso.</span></div>
+    <div class="regla"><b>El celular, fuera de la vista</b><span>En silencio y guardado. La paciente nunca debe verte con el celular en la mano.</span><span class="no">No va: celular sobre el counter o en la mano.</span></div>
+  </div>
+
+  <h2>A la vista de la paciente</h2>
+  <p class="nota">La presentación también es conducta. Vale para todo el personal, no solo para el counter.</p>
+  <ul class="conducta">
+    <li>En el counter y en las zonas que ve la paciente no se come ni se toma nada.</li>
+    <li>Nadie se recuesta ni descansa en camillas o sillones a la vista. Los descansos, fuera de su vista.</li>
+    <li>Sentada en el counter: postura erguida, de frente a la paciente, y la mirada en ella, no en la pantalla.</li>
+    <li>Cuando llega una paciente, te pones de pie, la saludas por su nombre y le ofreces algo de tomar.</li>
+    <li>Todo se entrega con las dos manos, girado hacia ella: la tablet, el documento, la tarjeta.</li>
+    <li>Quien paga tiene toda tu atención.</li>
+  </ul>
+
+  <h2>Check frente al espejo, antes de las 8:00</h2>
+  <p class="nota">Treinta segundos. El Admin hace el mismo check en la Academia y suma al puntaje de Recepcionista del mes.</p>
+  <div class="espejo">
+    <label><input type="checkbox"> Cabello recogido en moño o trenza</label>
+    <label><input type="checkbox"> Maquillaje completo y natural</label>
+    <label><input type="checkbox"> Uñas limpias, en tono claro</label>
+    <label><input type="checkbox"> Uniforme completo, planchado y con gafete visible</label>
+    <label><input type="checkbox"> Accesorios discretos</label>
+    <label><input type="checkbox"> Celular guardado y en silencio</label>
+  </div>
+
+  <p class="pie">Academia de Recepción · estándar de hotelería de lujo</p>
+</main>
+</body>
+</html>
