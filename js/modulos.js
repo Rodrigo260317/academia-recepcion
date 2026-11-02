@@ -195,6 +195,11 @@ window.MODULOS = [
         ]
       },
       {
+        tipo: 'video', titulo: 'Así recibe la hotelería profesional', youtube: '5BM2gD_YdeQ',
+        fuente: 'Video: «Departamento de Recepción y Housekeeping en un hotel», CENFOTUR (YouTube).',
+        fijate: ['Cómo se saluda y se da la bienvenida al huésped', 'La postura y la presentación de quien recibe', 'Qué se hace para que el huésped no espere sin información']
+      },
+      {
         tipo: 'ordenar', titulo: 'Ordena la llegada',
         consigna: 'Arrastra los pasos (o usa las flechas) hasta dejarlos en el orden correcto.',
         pasos: [
@@ -283,6 +288,11 @@ window.MODULOS = [
           { ilus: 'whatsapp', titulo: 'WhatsApp con el mismo estándar', texto: 'En horario se responde en menos de cinco minutos: saludo, su nombre y mensajes cortos y completos. Nada de «ok», stickers o audios largos.' },
           { ilus: 'timbre', titulo: 'El cierre', texto: 'Repite lo acordado (día, hora, doctora) y pregunta si hay algo más. Cuelga después de la paciente.', frase: '«¿Hay algo más en lo que pueda ayudarla?»' }
         ]
+      },
+      {
+        tipo: 'video', titulo: 'Mira cómo se atiende una llamada', youtube: 'xkEeQfQsvq8',
+        fuente: 'Video: «Etiqueta telefónica en contact center», Vilma Training (YouTube).',
+        fijate: ['Cómo saluda al contestar y cómo se presenta', 'El tono de voz: amable, sin apuro', 'Qué hace cuando tiene que poner en espera o no sabe algo']
       },
       {
         tipo: 'llamada', titulo: 'Simulador de llamada',
@@ -397,6 +407,11 @@ window.MODULOS = [
         ]
       },
       {
+        tipo: 'video', titulo: 'La imagen personal también comunica', youtube: 'tS7YZO0jP3w',
+        fuente: 'Video: «El cuidado de la imagen personal se alinea con la corporativa», CENTRUM PUCP (YouTube).',
+        fijate: ['Por qué la imagen de cada una es la imagen de la clínica', 'Qué transmite una presencia cuidada antes de hablar', 'Qué detalle tuyo podrías mejorar desde mañana']
+      },
+      {
         tipo: 'errores', titulo: 'Encuentra los 5 detalles',
         consigna: 'Esta recepcionista todavía no está lista para abrir. Toca los 5 detalles que hay que corregir.',
         escena: 'figura',
@@ -469,6 +484,11 @@ window.MODULOS = [
           { ilus: 'tablet', titulo: 'Con las dos manos', texto: 'La tablet, un documento, la tarjeta o el vuelto se entregan con las dos manos, girados hacia ella para que pueda leer, y explicándole qué es.', frase: '«Aquí tiene su consentimiento. Son dos minutos; cualquier duda, estoy aquí.»' },
           { ilus: 'puerta', titulo: 'Distancia y altura', texto: 'Mantén un brazo de distancia. Si ella está sentada, inclínate un poco o ponte a su altura; no le hables desde arriba.' }
         ]
+      },
+      {
+        tipo: 'video', titulo: 'Tu cuerpo habla con la paciente', youtube: 'k5jpvCSb5QE',
+        fuente: 'Video: «No saber gestionar el lenguaje corporal propio de cara al cliente», JC Alcaide (YouTube).',
+        fijate: ['Qué comunica el cuerpo aunque no digas nada', 'Los gestos que alejan al cliente', 'Uno que tú haces sin darte cuenta']
       },
       {
         tipo: 'ordenar', titulo: 'Entregar la tablet',

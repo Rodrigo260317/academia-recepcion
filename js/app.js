@@ -406,6 +406,15 @@
       marcar();
     },
 
+    // Video de YouTube (modo sin cookies) con lo que hay que observar.
+    video(p, c) {
+      c.innerHTML = '<h2 class="paso-titulo">' + esc(p.titulo) + '</h2>' +
+        '<div class="video-caja"><iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(p.youtube) + '?rel=0&modestbranding=1&playsinline=1' + (p.inicio ? '&start=' + p.inicio : '') + '"' +
+        ' title="' + esc(p.titulo) + '" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>' +
+        '<p class="nota-pie">' + esc(p.fuente) + '</p>' +
+        '<div class="porque"><span class="rotulo">Mientras lo ves, fíjate en</span><ul class="fijate">' + p.fijate.map(f => '<li>' + esc(f) + '</li>').join('') + '</ul></div>';
+    },
+
     caso(p, c, { listo }) {
       c.innerHTML = '<h2 class="paso-titulo">' + esc(p.titulo) + '</h2>' +
         '<div class="situacion">' + (p.ilus ? Ilus.svg(p.ilus) : '') + '<p>' + esc(p.situacion) + '</p></div>' +

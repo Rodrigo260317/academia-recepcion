@@ -234,6 +234,11 @@ p { margin: 0; }
 .lista-hallazgos li .num { font-weight: 600; }
 .lista-hallazgos li.faltaba { border-style: dashed; color: var(--gris); }
 
+.video-caja { position: relative; aspect-ratio: 16 / 9; margin-top: 16px; border: 1px solid var(--tinta); border-radius: var(--radio); overflow: hidden; background: var(--tinta); }
+.video-caja iframe, .video-caja video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.fijate { margin: 6px 0 0; padding-left: 18px; }
+.fijate li { margin-top: 4px; }
+
 /* Simulador de llamada */
 .llamada { background: var(--tinta); color: #F2F2EF; border-radius: var(--radio); padding: 22px 18px; margin-top: 16px; text-align: center; }
 .llamada .ilus { width: 110px; height: 110px; stroke: #F2F2EF; }
