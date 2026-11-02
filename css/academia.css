@@ -48,7 +48,7 @@ p { margin: 0; }
 .banda .quien b { color: #fff; font-weight: 600; }
 .banda h1 { font-size: 28px; font-weight: 700; margin-top: 18px; letter-spacing: -.01em; }
 .banda .sub { font-size: 14px; color: #B9BCC1; margin-top: 6px; }
-.enlace-banda { background: none; border: 1px solid #4A4D52; color: #E6E6E2; border-radius: 999px; padding: 6px 12px; font-size: 13px; }
+.enlace-banda { white-space: nowrap; flex: none; background: none; border: 1px solid #4A4D52; color: #E6E6E2; border-radius: 999px; padding: 6px 12px; font-size: 13px; }
 .enlace-banda:hover { border-color: #8A8F96; }
 .aviso-demo { background: var(--senal); color: var(--tinta); font-size: 13px; padding: 8px 16px; text-align: center; }
 
