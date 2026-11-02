@@ -408,6 +408,12 @@
 
     // Video de YouTube (modo sin cookies) con lo que hay que observar.
     video(p, c) {
+      if (p.archivo) { // video propio de la Academia
+        c.innerHTML = '<h2 class="paso-titulo">' + esc(p.titulo) + '</h2>' +
+          '<div class="video-caja"><video src="' + esc(p.archivo) + '" poster="' + esc(p.poster || '') + '" controls playsinline preload="metadata"></video></div>' +
+          (p.fijate ? '<div class="porque"><span class="rotulo">Lo que tienes que llevarte</span><ul class="fijate">' + p.fijate.map(f => '<li>' + esc(f) + '</li>').join('') + '</ul></div>' : '');
+        return;
+      }
       c.innerHTML = '<h2 class="paso-titulo">' + esc(p.titulo) + '</h2>' +
         '<div class="video-caja"><iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(p.youtube) + '?rel=0&modestbranding=1&playsinline=1' + (p.inicio ? '&start=' + p.inicio : '') + '"' +
         ' title="' + esc(p.titulo) + '" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>' +
