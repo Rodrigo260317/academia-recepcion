@@ -66,6 +66,15 @@
       if (previa) Object.assign(previa, fila); else d.turnos.push(fila);
       escribirDemo(d);
     }
+    if (pedido.accion === 'cambiarPin') {
+      if (!/^\d{4}$/.test(String(pedido.nuevo || ''))) return { ok: false, error: 'El PIN debe tener 4 números.' };
+      const objetivo = pedido.objetivo || yo.usuario;
+      if (objetivo !== yo.usuario && yo.rol !== 'admin') return { ok: false, error: 'Solo el Admin cambia el PIN de otra persona.' };
+      const u2 = USUARIOS_DEMO.find(x => x.usuario === objetivo);
+      if (!u2) return { ok: false, error: 'No existe ese usuario.' };
+      u2.pin = String(pedido.nuevo);
+      return { ok: true };
+    }
     const turnos = d.turnos || [];
     return {
       ok: true, usuario: yo,
@@ -126,6 +135,15 @@
     },
     guardarTurno(turno) {
       return pedir(Object.assign({ accion: 'guardarTurno', usuario: sesion.usuario, pin: sesion.pin }, turno));
+    },
+    // Sin objetivo cambia el PIN propio; el Admin puede indicar a quién.
+    async cambiarPin(nuevo, objetivo) {
+      const r = await pedir({ accion: 'cambiarPin', usuario: sesion.usuario, pin: sesion.pin, nuevo, objetivo });
+      if (r.ok && (!objetivo || objetivo === sesion.usuario)) {
+        sesion.pin = nuevo;
+        try { sessionStorage.setItem(CLAVE_SESION, JSON.stringify(sesion)); } catch (e) { /* nada */ }
+      }
+      return r;
     }
   };
 })();

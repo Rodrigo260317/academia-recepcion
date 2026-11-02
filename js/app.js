@@ -195,7 +195,7 @@
 
     app.innerHTML = avisoDemo() +
       '<header class="banda"><div class="contenedor"><div class="fila"><p class="quien"><b>' + esc(st.perfil.nombre) + '</b> · ' + fechaLarga(h) + '</p>' +
-      '<button class="enlace-banda" data-salir>Salir</button></div><h1>' + esc(titulo) + '</h1>' +
+      '<span style="display:flex;gap:8px"><button class="enlace-banda" data-mipin>Mi PIN</button><button class="enlace-banda" data-salir>Salir</button></span></div><h1>' + esc(titulo) + '</h1>' +
       '<p class="sub">Capacitación de ' + esc(CFG.hora) + ' a ' + esc(CFG.horaFin) + ', antes de abrir.</p></div></header>' +
       '<main class="contenedor">' + pase +
       '<section class="seccion"><div class="titulo"><h3>Tu turno de hoy</h3><span class="rotulo">' + fechaCorta(h) + '</span></div>' +
@@ -224,7 +224,37 @@
       if (el.tagName === 'LI') el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(); } });
     });
     app.querySelectorAll('[data-turno]').forEach(b => b.addEventListener('click', () => vistaTurno(b.dataset.turno)));
+    app.querySelector('[data-mipin]').addEventListener('click', vistaMiPin);
     app.querySelector('[data-salir]').addEventListener('click', () => { Datos.salir(); st.perfil = null; ir('#/'); });
+  }
+
+  // ───────────── cambiar el PIN propio
+  const campoPin = (id, etiqueta) => '<div class="campo"><label for="' + id + '">' + etiqueta + '</label>' +
+    '<input class="num" id="' + id + '" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="new-password"></div>';
+
+  function vistaMiPin() {
+    app.innerHTML = '<div class="leccion"><div class="barra-leccion"><div class="contenedor fila"><button class="cerrar" data-cerrar aria-label="Volver">' + icoX() + '</button>' +
+      '<strong>Cambiar mi PIN</strong></div></div>' +
+      '<main class="contenedor cuerpo-leccion entra"><h2 class="paso-titulo">Elige un PIN nuevo</h2>' +
+      '<p class="paso-sub">Cuatro números que solo tú sepas. Lo usarás desde la próxima vez que entres.</p>' +
+      '<form class="form" id="f-pin">' + campoPin('p-nuevo', 'PIN nuevo') + campoPin('p-repite', 'Repite el PIN nuevo') +
+      '<p class="msg-error" role="alert"></p></form></main>' +
+      '<div class="pie-leccion"><div class="contenedor"><button class="btn" data-guardar>Guardar PIN</button></div></div></div>';
+    window.scrollTo(0, 0);
+    app.querySelector('[data-cerrar]').addEventListener('click', () => ir('#/inicio', true));
+    app.querySelector('[data-guardar]').addEventListener('click', async e => {
+      const f = app.querySelector('#f-pin');
+      const msg = f.querySelector('.msg-error');
+      const nuevo = f.querySelector('#p-nuevo').value.trim();
+      if (!/^\d{4}$/.test(nuevo)) { msg.textContent = 'El PIN debe tener 4 números.'; return; }
+      if (nuevo !== f.querySelector('#p-repite').value.trim()) { msg.textContent = 'Los dos PIN no coinciden.'; return; }
+      await guardando(e.currentTarget, async () => {
+        const r = await Datos.cambiarPin(nuevo);
+        if (!r.ok) { msg.textContent = r.error; return; }
+        toast('PIN cambiado');
+        ir('#/inicio', true);
+      });
+    });
   }
 
   // ───────────── apertura y cierre de turno
@@ -715,7 +745,7 @@
   function vistaAdmin() {
     document.onkeydown = null;
     const h = hoy();
-    const pestanas = [['tablero', 'Tablero'], ['presentacion', 'Presentación'], ['turnos', 'Turnos y llamadas'], ['ranking', 'Recepcionista del mes']];
+    const pestanas = [['tablero', 'Tablero'], ['presentacion', 'Presentación'], ['turnos', 'Turnos y llamadas'], ['ranking', 'Recepcionista del mes'], ['pines', 'Usuarios y PIN']];
     app.innerHTML = '<div class="admin">' + avisoDemo() +
       '<header class="banda"><div class="contenedor"><div class="fila"><p class="quien"><b>Admin</b> · ' + fechaLarga(h) + '</p>' +
       '<span style="display:flex;gap:8px"><button class="enlace-banda" data-actualizar>Actualizar</button><button class="enlace-banda" data-salir>Salir</button></span></div>' +
@@ -730,7 +760,32 @@
       vistaAdmin();
     });
     const c = app.querySelector('#admin-cuerpo');
-    ({ tablero: adminTablero, presentacion: adminPresentacion, turnos: adminTurnos, ranking: adminRanking })[st.vistaAdmin](c);
+    ({ tablero: adminTablero, presentacion: adminPresentacion, turnos: adminTurnos, ranking: adminRanking, pines: adminPines })[st.vistaAdmin](c);
+  }
+
+  function adminPines(c) {
+    const usuarios = st.datos ? st.datos.usuarios : Datos.usuarios;
+    c.innerHTML = '<section class="seccion"><div class="titulo"><h3>Usuarios y PIN</h3></div>' +
+      '<p class="nota-pie">Escribe un PIN nuevo de 4 números y guárdalo. Vale desde el próximo ingreso. Cada recepcionista también puede cambiar el suyo con «Mi PIN».</p>' +
+      usuarios.map(u => '<form class="tarjeta-linea" data-u="' + u.usuario + '" style="margin-top:12px">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><strong>' + esc(u.nombre) + '</strong><span class="rotulo">' + (u.rol === 'admin' ? 'Admin' : 'Recepción') + '</span></div>' +
+        '<div style="display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-top:10px">' +
+        '<div class="campo"><label for="pin-' + u.usuario + '">PIN nuevo</label><input class="num" id="pin-' + u.usuario + '" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off"></div>' +
+        '<button class="btn chico" type="submit" style="min-height:50px">Guardar</button></div>' +
+        '<p class="msg-error" role="alert" style="text-align:left"></p></form>').join('') + '</section>';
+    c.querySelectorAll('form[data-u]').forEach(f => f.addEventListener('submit', async e => {
+      e.preventDefault();
+      const nuevo = f.querySelector('input').value.trim();
+      const msg = f.querySelector('.msg-error');
+      if (!/^\d{4}$/.test(nuevo)) { msg.textContent = 'El PIN debe tener 4 números.'; return; }
+      await guardando(f.querySelector('button'), async () => {
+        const r = await Datos.cambiarPin(nuevo, f.dataset.u);
+        if (!r.ok) { msg.textContent = r.error; return; }
+        msg.textContent = '';
+        f.querySelector('input').value = '';
+        toast('PIN de ' + nombreDe(f.dataset.u) + ' actualizado');
+      });
+    }));
   }
 
   function adminTablero(c) {
