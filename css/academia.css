@@ -178,16 +178,32 @@ p { margin: 0; }
 .ilus .acento { stroke: var(--senal); stroke-width: 2.2; }
 .ilus .base { stroke: var(--filete); }
 
-.carrusel { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 18px -16px 0; padding: 0 16px 6px; scrollbar-width: none; }
-.carrusel::-webkit-scrollbar { display: none; }
-.tarjeta { flex: 0 0 86%; scroll-snap-align: center; background: var(--papel); border: 1px solid var(--tinta); border-radius: var(--radio); padding: 18px; display: flex; flex-direction: column; }
-.tarjeta .ilus { width: 84px; height: 84px; }
-.tarjeta h3 { font-size: 20px; font-weight: 700; margin-top: 8px; }
-.tarjeta p { margin-top: 8px; font-size: 16px; color: #33363A; }
-.tarjeta blockquote { margin: 14px 0 0; padding: 12px 14px; border-radius: 10px; background: var(--fondo); font-size: 15px; font-weight: 500; }
-.puntos-carrusel { display: flex; justify-content: center; gap: 6px; margin-top: 14px; }
-.puntos-carrusel i { width: 7px; height: 7px; border-radius: 50%; background: var(--filete); transition: background .2s, width .2s; }
-.puntos-carrusel i.on { background: var(--tinta); width: 20px; border-radius: 4px; }
+.carta { margin-top: 18px; background: #FBFAF6; border: 1px solid var(--tinta); border-radius: var(--radio); padding: 6px; }
+.carta-cab { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px 8px; border-bottom: 1px solid var(--filete); }
+.carta-cab .rotulo { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.carta-num { font-size: 13px; color: var(--gris); flex: none; }
+.carta-ficha { padding: 22px 18px 18px; min-height: 280px; text-align: center; touch-action: pan-y; user-select: none; cursor: grab; }
+.carta-ficha.entra { animation: fichaEntra .35s var(--sale); }
+@keyframes fichaEntra { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.carta-ilus { width: 92px; height: 92px; margin: 0 auto; border-radius: 50%; background: var(--papel); border: 1px solid var(--filete); display: grid; place-items: center; box-shadow: 0 0 0 5px #FBFAF6, 0 0 0 6px var(--senal); }
+.carta-ilus .ilus { width: 70px; height: 70px; }
+.carta-ficha h3 { font-size: 23px; font-weight: 700; letter-spacing: -.01em; margin-top: 18px; }
+.carta-ficha p { margin: 10px auto 0; font-size: 17px; line-height: 1.55; color: #33363A; max-width: 46ch; }
+.carta-ficha blockquote { margin: 16px auto 0; max-width: 46ch; text-align: left; padding: 12px 14px; border-left: 3px solid var(--senal); background: var(--papel); border-radius: 0 10px 10px 0; font-size: 16px; font-weight: 500; }
+.carta-ficha blockquote .rotulo { display: block; margin-bottom: 4px; color: #6B5200; }
+.carta-controles { display: grid; grid-template-columns: 48px 1fr 48px; gap: 10px; align-items: center; padding: 6px 10px 12px; }
+.carta-flecha { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--tinta); background: var(--papel); display: grid; place-items: center; }
+.carta-flecha:disabled { border-color: var(--filete); color: var(--filete); }
+.carta-voz { justify-self: center; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--tinta); background: var(--tinta); color: #fff; font-weight: 600; font-size: 15px; }
+.carta-voz[aria-pressed="true"] { background: var(--senal); border-color: var(--senal); color: var(--tinta); }
+.carta-indice { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--filete); }
+.carta-indice li + li { border-top: 1px dashed var(--filete); }
+.carta-indice button { width: 100%; display: flex; gap: 12px; align-items: baseline; text-align: left; background: none; border: 0; padding: 11px 12px; font-size: 15px; color: var(--gris); }
+.carta-indice button .num { font-size: 12px; color: var(--filete); }
+.carta-indice button.visto { color: var(--tinta); }
+.carta-indice button.visto .num { color: var(--gris); }
+.carta-indice button.on { color: var(--tinta); font-weight: 700; background: var(--papel); border-radius: 10px; box-shadow: inset 3px 0 0 var(--senal); }
+@media (prefers-reduced-motion: reduce) { .carta-ficha.entra { animation: none; } }
 
 .real { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; color: var(--gris); }
 .situacion { display: flex; gap: 14px; align-items: center; background: var(--papel); border: 1px solid var(--tinta); border-radius: var(--radio); padding: 16px; margin-top: 16px; }

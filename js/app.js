@@ -266,7 +266,7 @@
 
   // ───────────── apertura y cierre de turno
   const CHECK_APERTURA = [
-    'Los tres teléfonos con volumen alto y sin desvío',
+    'Los tres teléfonos con tono, volumen alto y sin desvío (si uno falla, avisar al Admin)',
     'Mensaje de «fuera de horario» desactivado',
     'Agenda del día y pacientes VIP revisadas',
     'Llamadas y WhatsApp pendientes de ayer revisados',
@@ -393,6 +393,10 @@
 
   const icoX = () => '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   const icoArriba = () => '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>';
+  const icoIzq = () => '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
+  const icoDer = () => '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+  const icoPlay = () => '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  const icoPausa = () => '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
   const icoAbajo = () => '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 
   // ───────────── lección
@@ -449,34 +453,74 @@
         (p.porque ? '<div class="porque"><span class="rotulo">Por qué importa</span>' + esc(p.porque) + '</div>' : '');
     },
 
-    tarjetas(p, c, { L, listo, siguiente }) {
-      c.innerHTML = '<h2 class="paso-titulo">' + esc(p.titulo) + '</h2><p class="paso-sub">Desliza para ver cada una.</p>' +
-        '<div class="carrusel" tabindex="0" aria-label="Tarjetas">' + p.tarjetas.map(t =>
-          '<article class="tarjeta">' + Ilus.svg(t.ilus) + '<h3>' + esc(t.titulo) + '</h3><p>' + esc(t.texto) + '</p>' +
-          (t.frase ? '<blockquote>' + esc(t.frase) + '</blockquote>' : '') + '</article>').join('') + '</div>' +
-        '<div class="puntos-carrusel" aria-hidden="true">' + p.tarjetas.map(() => '<i></i>').join('') + '</div>';
-      const car = c.querySelector('.carrusel');
-      const fichas = [...car.children];
-      const puntos = [...c.querySelectorAll('.puntos-carrusel i')];
-      let actual = 0;
-      const marcar = () => {
-        puntos.forEach((d, k) => d.classList.toggle('on', k === actual));
-        listo(true, actual < fichas.length - 1 ? 'Siguiente tarjeta' : 'Continuar');
+    // Carta de protocolo: una ficha a la vez, como la carta de tratamientos de la clínica.
+    // Cada ficha se puede escuchar con la voz de la Academia (media/narracion/<módulo>-<n>.mp3).
+    tarjetas(p, c, { L, listo, siguiente, mod }) {
+      const n = p.tarjetas.length;
+      const conVoz = !!(window.NARRACION && window.NARRACION[mod.id] === n);
+      c.innerHTML = '<h2 class="paso-titulo">' + esc(p.titulo) + '</h2>' +
+        '<p class="paso-sub">' + (conVoz ? 'Escucha cada punto del protocolo o avanza a tu ritmo.' : 'Revisa cada punto del protocolo.') + '</p>' +
+        '<section class="carta" aria-label="Protocolo">' +
+        '<div class="carta-cab"><span class="rotulo">Protocolo · ' + esc(mod.titulo) + '</span><span class="num carta-num"></span></div>' +
+        '<div class="carta-ficha" aria-live="polite"></div>' +
+        '<div class="carta-controles">' +
+        '<button class="carta-flecha" data-prev aria-label="Anterior">' + icoIzq() + '</button>' +
+        (conVoz ? '<button class="carta-voz" data-voz aria-pressed="false"></button>' : '<span></span>') +
+        '<button class="carta-flecha" data-next aria-label="Siguiente">' + icoDer() + '</button></div>' +
+        '<ol class="carta-indice">' + p.tarjetas.map((t, k) => '<li><button data-k="' + k + '"><span class="num">' + pad(k + 1) + '</span><span>' + esc(t.titulo) + '</span></button></li>').join('') + '</ol>' +
+        '</section>' + (conVoz ? '<audio preload="none"></audio>' : '');
+      const ficha = c.querySelector('.carta-ficha');
+      const audio = c.querySelector('audio');
+      const bVoz = c.querySelector('[data-voz]');
+      let actual = 0, visto = 0, sonando = false;
+      const pintarVoz = () => { if (bVoz) { bVoz.innerHTML = sonando ? icoPausa() + ' Pausar' : icoPlay() + ' Escuchar'; bVoz.setAttribute('aria-pressed', sonando); } };
+      const mostrar = (k, voz) => {
+        actual = Math.max(0, Math.min(n - 1, k));
+        visto = Math.max(visto, actual);
+        const t = p.tarjetas[actual];
+        ficha.innerHTML = '<div class="carta-ilus">' + Ilus.svg(t.ilus) + '</div><h3>' + esc(t.titulo) + '</h3><p>' + esc(t.texto) + '</p>' +
+          (t.frase ? '<blockquote><span class="rotulo">Así se dice</span>' + esc(t.frase) + '</blockquote>' : '');
+        ficha.classList.remove('entra'); void ficha.offsetWidth; ficha.classList.add('entra');
+        c.querySelector('.carta-num').textContent = pad(actual + 1) + ' / ' + pad(n);
+        c.querySelectorAll('.carta-indice button').forEach((b, i) => { b.classList.toggle('on', i === actual); b.classList.toggle('visto', i <= visto); });
+        c.querySelector('[data-prev]').disabled = actual === 0;
+        c.querySelector('[data-next]').disabled = actual === n - 1;
+        listo(true, actual < n - 1 ? 'Siguiente punto' : 'Continuar');
+        if (audio && (voz || sonando)) {
+          audio.src = 'media/narracion/' + mod.id + '-' + (actual + 1) + '.mp3';
+          audio.play().then(() => { sonando = true; pintarVoz(); }).catch(() => { sonando = false; pintarVoz(); });
+        }
       };
-      car.addEventListener('scroll', () => {
-        const centro = car.scrollLeft + car.clientWidth / 2;
-        let mejor = 0, dist = Infinity;
-        fichas.forEach((f, k) => { const d = Math.abs(f.offsetLeft + f.offsetWidth / 2 - centro); if (d < dist) { dist = d; mejor = k; } });
-        if (mejor !== actual) { actual = mejor; marcar(); }
-      }, { passive: true });
+      if (audio) {
+        audio.addEventListener('ended', () => {
+          if (actual < n - 1) setTimeout(() => { if (sonando && audio.isConnected) mostrar(actual + 1); }, 700);
+          else { sonando = false; pintarVoz(); }
+        });
+        bVoz.addEventListener('click', () => {
+          if (sonando) { audio.pause(); sonando = false; pintarVoz(); }
+          else if (audio.src && !audio.ended && audio.currentTime > 0) { audio.play(); sonando = true; pintarVoz(); }
+          else mostrar(actual, true);
+        });
+      }
+      c.querySelector('[data-prev]').addEventListener('click', () => mostrar(actual - 1));
+      c.querySelector('[data-next]').addEventListener('click', () => mostrar(actual + 1));
+      c.querySelectorAll('.carta-indice button').forEach(b => b.addEventListener('click', () => mostrar(+b.dataset.k)));
+      // Deslizar con el dedo o arrastrar con el mouse.
+      let x0 = null;
+      ficha.addEventListener('pointerdown', e => { x0 = e.clientX; });
+      ficha.addEventListener('pointerup', e => {
+        if (x0 === null) return;
+        const dx = e.clientX - x0; x0 = null;
+        if (Math.abs(dx) > 40) mostrar(actual + (dx < 0 ? 1 : -1));
+      });
+      ficha.addEventListener('pointercancel', () => { x0 = null; });
+      document.onkeydown = e => { if (!ficha.isConnected) { document.onkeydown = null; return; } if (e.key === 'ArrowRight') mostrar(actual + 1); if (e.key === 'ArrowLeft') mostrar(actual - 1); };
       L.alSeguir = () => {
-        if (actual < fichas.length - 1) {
-          actual++;
-          car.scrollTo({ left: fichas[actual].offsetLeft - (car.clientWidth - fichas[actual].offsetWidth) / 2, behavior: 'smooth' });
-          marcar();
-        } else siguiente();
+        if (actual < n - 1) mostrar(actual + 1);
+        else { if (audio) audio.pause(); document.onkeydown = null; siguiente(); }
       };
-      marcar();
+      pintarVoz();
+      mostrar(0, conVoz);
     },
 
     // Video de YouTube (modo sin cookies) con lo que hay que observar.

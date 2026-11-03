@@ -333,7 +333,7 @@ window.MODULOS = [
         porque: 'Tener más personas en el counter solo sirve si nada se pierde entre una y otra.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: lo que no se entrega se pierde', archivo: 'media/m05-turno.mp4', poster: 'media/m05-turno.jpg',
+        tipo: 'video', titulo: 'Mira el video: lo que no se entrega se pierde', archivo: 'media/m05-turno-v2.mp4', poster: 'media/m05-turno-v2.jpg',
         fijate: ['Apertura antes de las 8:00: teléfonos, mensaje automático, agenda', 'Cada pendiente con su hora', 'Cierre: llamadas y WhatsApp contados', 'Entrega de palabra y por escrito']
       },
       {
@@ -348,7 +348,7 @@ window.MODULOS = [
       {
         tipo: 'tarjetas', titulo: 'Tres momentos',
         tarjetas: [
-          { ilus: 'llave', titulo: 'Apertura (antes de las 8:00)', texto: 'Los tres teléfonos con el volumen alto y sin desvío, y el mensaje de «fuera de horario» desactivado. Revisas la agenda del día, las pacientes VIP y las llamadas y WhatsApp pendientes del día anterior. El counter, ordenado.' },
+          { ilus: 'llave', titulo: 'Apertura (antes de las 8:00)', texto: 'Los tres teléfonos con tono (si uno falla, avisas al Admin), con el volumen alto y sin desvío, y el mensaje de «fuera de horario» desactivado. Revisas la agenda del día, las pacientes VIP y las llamadas y WhatsApp pendientes del día anterior. El counter, ordenado.' },
           { ilus: 'agenda', titulo: 'Durante el día', texto: 'Cada llamada que no puedes resolver va a la lista de pendientes con la hora prometida. Cada ocurrencia (una queja, un error, una demora larga) se anota en el momento.' },
           { ilus: 'telefono', titulo: 'Cierre', texto: 'Cuentas cuántas llamadas entraron, cuántas se contestaron, cuántas se devolvieron y cuántas quedaron pendientes, y cuántos WhatsApp quedaron sin responder. Todo se anota en la plataforma.' },
           { ilus: 'manos', titulo: 'Entrega de turno', texto: 'Si alguien te reemplaza, le entregas en voz alta y por escrito: pacientes en sala, pendientes con su hora y lo que pasó. Si no está escrito, no se entregó.', frase: '«Te entrego: dos pacientes en sala, una llamada por devolver a las 4 y una queja anotada.»' }
@@ -358,7 +358,7 @@ window.MODULOS = [
         tipo: 'ordenar', titulo: 'Ordena la apertura',
         consigna: 'Ordena lo que se hace al abrir el counter.',
         pasos: [
-          'Reviso que los tres teléfonos tengan volumen y no estén desviados',
+          'Reviso que los tres teléfonos tengan tono, volumen y no estén desviados',
           'Desactivo el mensaje de fuera de horario',
           'Reviso la agenda del día y las pacientes VIP',
           'Reviso las llamadas y WhatsApp pendientes de ayer',
@@ -367,11 +367,11 @@ window.MODULOS = [
       },
       {
         tipo: 'caso', titulo: '¿Qué harías?', ilus: 'telefono',
-        situacion: 'Son las 8:10. Un doctor llama a los fijos y al celular de la clínica y nadie contesta; además sale el mensaje de «fuera de horario».',
+        situacion: 'Haces la apertura a las 7:50 y, al levantar uno de los teléfonos, no hay tono.',
         opciones: [
-          { texto: 'No es mi culpa: todavía no había terminado de instalarme.', ok: false, nota: 'A las 8:00 la clínica está abierta. La apertura se hace antes, en el bloque de 7:30.' },
-          { texto: 'Se evita en la apertura: volumen, desvíos y mensaje automático se revisan antes de las 8:00, todos los días.', ok: true, nota: 'Así es. Ese chequeo de dos minutos evita la queja más repetida.' },
-          { texto: 'Que llame más tarde.', ok: false, nota: 'Esa llamada pudo ser una paciente con una urgencia.' }
+          { texto: 'Lo dejo así; ya lo arreglará alguien.', ok: false, nota: 'Mientras tanto, las pacientes que llamen a esa línea no van a poder comunicarse.' },
+          { texto: 'Aviso de inmediato al Admin, lo anoto en la bitácora y, mientras se resuelve, atiendo por las otras líneas.', ok: true, nota: 'Así es. Revisar que las líneas funcionen es parte de la apertura: si una falla, se avisa antes de abrir.' },
+          { texto: 'Desvío las llamadas a mi celular personal.', ok: false, nota: 'Los teléfonos de la clínica no se desvían a celulares personales.' }
         ]
       },
       {
@@ -521,16 +521,16 @@ window.MODULOS = [
         porque: 'Una complicación se contiene, se resuelve y nunca se deja de contestar el teléfono.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: antes del tercer timbre', archivo: 'media/m01-telefono-v2.mp4', poster: 'media/m01-telefono-v2.jpg',
+        tipo: 'video', titulo: 'Mira el video: antes del tercer timbre', archivo: 'media/m01-telefono-v3.mp4', poster: 'media/m01-telefono-v3.jpg',
         fijate: ['Los tres teléfonos siempre con volumen alto, nunca desviados', 'Contestar antes del tercer timbre, con el saludo de la casa', 'Devolver la llamada a la hora prometida', 'WhatsApp: si lo abres, lo respondes']
       },
       {
-        tipo: 'caso', real: '23/09/2026', titulo: '¿Qué pasó aquí?', ilus: 'telefono',
-        situacion: 'A las 8:10 un doctor llamó a los fijos y al celular de la clínica y nadie contestó. Encima, salió el mensaje de «fuera de horario» con la clínica abierta. ¿Cuál fue la causa de fondo?',
+        tipo: 'caso', real: '07/10/2026', titulo: '¿Qué dicen las reseñas?', ilus: 'whatsapp',
+        situacion: 'Al revisar las reseñas de Google, varias pacientes cuentan lo mismo: escribieron por WhatsApp y la respuesta tardó demasiado. ¿Qué cambia desde hoy?',
         opciones: [
-          { texto: 'Mala suerte: justo estaban todas ocupadas.', ok: false, nota: 'No fue un día malo: la misma queja salió en tres reuniones (16/09, 23/09 y 07/10).' },
-          { texto: 'Una costumbre: el volumen bajo, el desvío al celular y nadie revisando el mensaje automático al abrir.', ok: true, nota: 'Exacto. Es una costumbre de años que aprenden las nuevas, y se corta con un estándar: volumen alto, sin desvíos y la apertura revisada antes de las 8:00.' },
-          { texto: 'Que el doctor llamó demasiado temprano.', ok: false, nota: 'A las 8:10 la clínica está abierta. Además, los pacientes mayores no usan WhatsApp: llaman al fijo que sale en la web.' }
+          { texto: 'Nada: en WhatsApp todos responden cuando pueden.', ok: false, nota: 'Para una paciente de lujo, la espera en el chat también es espera.' },
+          { texto: 'Si lo abro, lo respondo en ese momento. Si no puedo resolverlo, le digo cuándo le confirmo, y cumplo.', ok: true, nota: 'Exacto: chat abierto, chat respondido. Y la hora que prometes se cumple.' },
+          { texto: 'Lo dejo en visto y respondo todo junto en la tarde.', ok: false, nota: 'El «visto» sin respuesta es lo que termina en una reseña de una estrella.' }
         ]
       },
       {
