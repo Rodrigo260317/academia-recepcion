@@ -164,75 +164,140 @@
   }
 
   // ───────────── inicio de la recepcionista
+  // Los 20 módulos agrupados en 5 bloques de 4 (dos semanas cada uno).
+  const BLOQUES = [
+    { titulo: 'Lo urgente', sub: 'Teléfono, esperas, complicaciones y cobro', desde: 1 },
+    { titulo: 'Imagen y día a día', sub: 'Turno, bienvenida, presencia y gestos', desde: 5 },
+    { titulo: 'Procesos del counter', sub: 'Registro, flujo, verdad y pacientes difíciles', desde: 9 },
+    { titulo: 'Confianza y experiencia', sub: 'Quejas, discreción, VIP y venta ética', desde: 13 },
+    { titulo: 'Organización y equipo', sub: 'Agenda, historias, recorrido y equipo', desde: 17 }
+  ];
+  const bloqueDe = n => BLOQUES.findIndex(b => n >= b.desde && n < b.desde + 4);
+  const ETAPA = { escena: 'Introducción', video: 'Video', caso: 'Caso real', tarjetas: 'Protocolo', ordenar: 'Práctica', sino: 'Práctica', vf: 'Práctica', errores: 'Práctica', llamada: 'Simulación', evaluacion: 'Evaluación', compromiso: 'Tu compromiso' };
+  const icoCheck = () => '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+  // Estado de un módulo dicho en palabras simples, para el bloque.
+  function chipModulo(e) {
+    if (e.clave === 'aprobado') return '<span class="chip-mod ok">' + icoCheck() + ' Aprobado · ' + e.p.mejor_nota + '</span>';
+    if (e.clave === 'reintentar') return '<span class="chip-mod reintentar">Volver a intentar</span>';
+    if (e.clave === 'atrasado') return '<span class="chip-mod atrasado">Atrasado</span>';
+    if (e.clave === 'hoy') return '<span class="chip-mod hoy">' + (e.texto === 'HOY' ? 'Toca hoy' : 'Pendiente') + '</span>';
+    return '<span class="chip-mod">' + fechaCorta(e.fecha).slice(0, 6).replace(/^\w+/, d => d.charAt(0) + d.slice(1).toLowerCase()) + '</span>';
+  }
+
   function vistaInicio() {
     document.onkeydown = null;
     const yo = st.perfil.usuario;
     const h = hoy();
     const mod = moduloSugerido(yo);
-    let titulo, pase;
+    const aprobados = MODS.filter(m => estadoModulo(yo, m.n).clave === 'aprobado').length;
+    const pct = Math.round(aprobados / PROGRAMA.length * 100);
+    let pase;
     if (!mod) {
-      titulo = 'Estás al día';
-      pase = '<section class="pase"><div class="pase-cab"><div class="txt"><p class="rotulo">Pase de capacitación · ' + esc(st.perfil.nombre) + '</p>' +
-        '<h2>Aprobaste todos los módulos publicados</h2><p>El próximo módulo aparece aquí en su fecha.</p></div>' + Ilus.svg('timbre') + '</div></section>';
+      pase = '<section class="pase"><div class="pase-cab"><div class="txt"><p class="rotulo">Tu siguiente paso</p>' +
+        '<h2>Aprobaste todos los módulos</h2><p>Puedes repasar cualquiera cuando quieras desde tus bloques.</p></div>' + Ilus.svg('timbre') + '</div></section>';
     } else {
       const e = estadoModulo(yo, mod.n);
       const fecha = fechaModulo(mod.n);
-      titulo = (fecha === h ? 'Hoy: ' : fecha < h ? 'Pendiente: ' : 'Próximo: ') + mod.titulo;
       const p = progreso(yo, mod.id);
-      pase = '<section class="pase"><div class="pase-cab"><div class="txt"><p class="rotulo">Pase de capacitación · ' + esc(st.perfil.nombre) + '</p>' +
+      pase = '<section class="pase"><div class="pase-cab"><div class="txt"><p class="rotulo">Tu siguiente paso · Módulo ' + pad(mod.n) + '</p>' +
         '<h2>' + esc(mod.titulo) + '</h2><p>' + esc(mod.resumen) + '</p></div>' + Ilus.svg(mod.ilus) + '</div>' +
         '<div class="perforado"></div><div class="segmentos">' +
-        '<div><span class="rotulo">' + (fecha === h ? 'Hora' : 'Día') + '</span><b>' + (fecha === h ? esc(CFG.hora) : fechaCorta(fecha).slice(0, 6)) + '</b></div>' +
-        '<div><span class="rotulo">Dura</span><b>' + mod.minutos + '′</b></div>' +
-        '<div><span class="rotulo">Módulo</span><b>' + pad(mod.n) + '</b></div></div>' +
-        '<div class="acciones"><button class="btn" data-mod="' + mod.id + '">' + (p ? 'Intentar de nuevo' : 'Empezar') + '</button></div>' +
-        (e.clave === 'atrasado' ? '<span class="sello" style="border-color:var(--tinta);color:var(--tinta);background:var(--senal)">ATRASADO</span>' : '') +
+        '<div><span class="rotulo">' + (fecha === h ? 'Hoy a las' : fecha < h ? 'Era el' : 'Toca el') + '</span><b>' + (fecha === h ? esc(CFG.hora) : fechaCorta(fecha).slice(0, 6)) + '</b></div>' +
+        '<div><span class="rotulo">Dura</span><b>' + mod.minutos + ' min</b></div>' +
+        '<div><span class="rotulo">Bloque</span><b>' + (bloqueDe(mod.n) + 1) + ' de 5</b></div></div>' +
+        '<div class="acciones"><button class="btn" data-empezar="' + mod.id + '">' + (p ? 'Intentar de nuevo' : 'Empezar módulo') + '</button></div>' +
+        (e.clave === 'atrasado' ? '<span class="sello atrasado">ATRASADO</span>' : '') +
         '</section>';
     }
     const ap = (st.datos.turnos || []).find(t => t.usuario === yo && t.fecha === h && t.momento === 'apertura');
     const ci = (st.datos.turnos || []).find(t => t.usuario === yo && t.fecha === h && t.momento === 'cierre');
+    const pend = pendientesBitacora();
     const rk = ranking();
+
+    const bloques = BLOQUES.map((b, k) => {
+      const nums = [0, 1, 2, 3].map(x => b.desde + x);
+      const hechos = nums.filter(n => estadoModulo(yo, n).clave === 'aprobado').length;
+      return '<section class="bloque' + (hechos === 4 ? ' completo' : '') + '"><div class="bloque-cab">' +
+        '<span class="bloque-num">' + (k + 1) + '</span><div><h3>' + esc(b.titulo) + '</h3><p>' + esc(b.sub) + '</p></div>' +
+        '<span class="bloque-avance" aria-label="' + hechos + ' de 4 aprobados">' + hechos + '/4</span></div>' +
+        '<div class="mod-grid">' + nums.map(n => {
+          const m = modPorN(n);
+          const e = estadoModulo(yo, n);
+          const pg = PROGRAMA.find(x => x.n === n);
+          const actual = mod && mod.n === n;
+          return '<button class="mod-tile ' + e.clave + (actual ? ' actual' : '') + '"' + (m ? ' data-mod="' + m.id + '"' : ' disabled') + '>' +
+            '<span class="mod-ilus">' + Ilus.svg(m ? m.ilus : 'agenda') + '</span>' +
+            '<span class="mod-num">Módulo ' + pad(n) + '</span><span class="mod-titulo">' + esc(pg.titulo) + '</span>' + chipModulo(e) + '</button>';
+        }).join('') + '</div></section>';
+    }).join('');
 
     app.innerHTML = avisoDemo() +
       '<header class="banda"><div class="contenedor">' + '<div class="marca-jb"><img src="media/logo-jb.png" alt=""><div><span>Joana Bernedo</span><small>Academia de Recepción</small></div></div>' + '<div class="fila"><p class="quien"><b>' + esc(st.perfil.nombre) + '</b> · ' + fechaLarga(h) + '</p>' +
-      '<span style="display:flex;gap:8px"><button class="enlace-banda" data-mipin>Mi PIN</button><button class="enlace-banda" data-salir>Salir</button></span></div><h1>' + esc(titulo) + '</h1>' +
-      '<p class="sub">Capacitación de ' + esc(CFG.hora) + ' a ' + esc(CFG.horaFin) + ', antes de abrir.</p></div></header>' +
+      '<span style="display:flex;gap:8px"><button class="enlace-banda" data-mipin>Mi PIN</button><button class="enlace-banda" data-salir>Salir</button></span></div>' +
+      '<h1>Hola, ' + esc(st.perfil.nombre) + '</h1>' +
+      '<div class="avance-total"><div class="avance-txt"><span>Llevas <b>' + aprobados + ' de ' + PROGRAMA.length + '</b> módulos aprobados</span><span>' + pct + '%</span></div>' +
+      '<div class="avance-barra"><i style="width:' + pct + '%"></i></div>' +
+      '<p class="sub">Capacitación lunes y jueves, de ' + esc(CFG.hora) + ' a ' + esc(CFG.horaFin) + '.</p></div></div></header>' +
       '<main class="contenedor">' + pase +
-      '<section class="seccion"><div class="titulo"><h3>Tu turno de hoy</h3><span class="rotulo">' + fechaCorta(h) + '</span></div>' +
-      '<div class="turno-dia">' +
-      '<button data-turno="apertura" class="' + (ap ? 'hecho' : '') + '"><b>Apertura</b><span>' + (ap ? 'Registrada' : 'Antes de las 8:00') + '</span></button>' +
-      '<button data-turno="cierre" class="' + (ci ? 'hecho' : '') + '"><b>Cierre</b><span>' + (ci ? ci.contestadas + ' de ' + ci.entrantes + ' llamadas' : 'Llamadas y pendientes') + '</span></button>' +
-      '</div></section>' +
-      '<section class="seccion"><div class="titulo"><h3>Bitácora de ocurrencias</h3><span class="rotulo">' + pendientesBitacora() + ' pendiente' + (pendientesBitacora() === 1 ? '' : 's') + '</span></div>' +
-      '<p class="nota-pie">Quejas, demoras, errores o algo olvidado: fecha, hora y hechos, sin adjetivos. Así la que entra al turno y el médico ya lo saben.</p>' +
-      '<div class="turno-dia"><button data-ocurrencia><b>Registrar ocurrencia</b><span>Dos minutos, en el momento</span></button>' +
-      '<a class="boton-enlace" href="guia.html" target="_blank" rel="noopener"><b>Guía de presentación</b><span>Para imprimir o revisar</span></a></div>' +
-      listaBitacora((st.datos.bitacora || []).slice().sort(ordenBitacora).slice(0, 4), yo) + '</section>' +
-      '<section class="seccion"><div class="titulo"><h3>Tablero de módulos</h3><span class="rotulo">Lun y jue</span></div><ul class="tablero">' +
-      PROGRAMA.map(pg => {
-        const e = estadoModulo(yo, pg.n);
-        const m = modPorN(pg.n);
-        return '<li class="' + (m ? 'abrible' : 'apagado') + '"' + (m ? ' data-mod="' + m.id + '" tabindex="0" role="button"' : '') + '>' +
-          '<span class="n">' + pad(pg.n) + '</span><span><span class="nombre">' + esc(pg.titulo) + '</span><span class="fecha">' + fechaCorta(e.fecha) + '</span></span>' +
-          tagFlap(e.clave, e.texto, yo + ':' + pg.n) + '</li>';
-      }).join('') + '</ul></section>' +
+      '<section class="seccion"><div class="titulo"><h3>Hoy en el counter</h3><span class="rotulo">' + fechaCorta(h) + '</span></div>' +
+      '<div class="accesos">' +
+      '<button data-turno="apertura" class="acceso' + (ap ? ' hecho' : '') + '"><span class="acceso-ilus">' + Ilus.svg('llave') + '</span><b>Apertura</b><span>' + (ap ? icoCheck() + ' Registrada' : 'Antes de las 8:00') + '</span></button>' +
+      '<button data-turno="cierre" class="acceso' + (ci ? ' hecho' : '') + '"><span class="acceso-ilus">' + Ilus.svg('reloj') + '</span><b>Cierre</b><span>' + (ci ? icoCheck() + ' ' + ci.contestadas + ' de ' + ci.entrantes + ' llamadas' : 'Llamadas y pendientes') + '</span></button>' +
+      '<button data-ocurrencia class="acceso"><span class="acceso-ilus">' + Ilus.svg('alerta') + '</span><b>Ocurrencia</b><span>' + (pend ? pend + ' pendiente' + (pend === 1 ? '' : 's') : 'Anotar lo que pasó') + '</span></button>' +
+      '<a class="acceso" href="guia.html" target="_blank" rel="noopener"><span class="acceso-ilus">' + Ilus.svg('espejo') + '</span><b>Presentación</b><span>Guía para imprimir</span></a>' +
+      '</div>' +
+      '<details class="bitacora-plegable"' + (pend ? ' open' : '') + '><summary>Bitácora de ocurrencias' + (pend ? ' · ' + pend + ' pendiente' + (pend === 1 ? '' : 's') : '') + '</summary>' +
+      '<p class="nota-pie">Quejas, demoras, errores o algo olvidado: fecha, hora y hechos, sin adjetivos.</p>' +
+      listaBitacora((st.datos.bitacora || []).slice().sort(ordenBitacora).slice(0, 4), yo) + '</details></section>' +
+      '<section class="seccion"><div class="titulo"><h3>Tus módulos</h3><span class="rotulo">5 bloques · 20 módulos</span></div>' +
+      '<p class="nota-pie">Toca un módulo para ver de qué trata y empezar. Puedes adelantarte o repasar cuando quieras.</p>' +
+      '<div class="leyenda-mod"><span class="chip-mod ok">' + icoCheck() + ' Aprobado</span><span class="chip-mod hoy">Toca hoy</span><span class="chip-mod atrasado">Atrasado</span><span class="chip-mod">Próximo</span></div>' +
+      bloques + '</section>' +
       '<section class="seccion"><div class="titulo"><h3>Recepcionista del mes</h3><span class="rotulo">' + MESES[new Date().getMonth()] + '</span></div>' +
       '<ul class="ranking">' + rk.map((r, i) => '<li class="' + (i === 0 && r.total > 0 ? 'primero' : '') + '"><span class="pos">' + (i + 1) + '</span>' +
         '<span><b>' + esc(r.u.nombre) + (r.u.usuario === yo ? ' (tú)' : '') + '</b><span class="barra"><i style="width:' + r.total + '%"></i></span></span>' +
         '<span class="num">' + r.total + '</span></li>').join('') + '</ul>' +
       '<p class="nota-pie">Suma tus notas de los módulos (50 %), el checklist de presentación (30 %) y tus registros de apertura y cierre (20 %).</p></section>' +
-      '<p class="pie">Academia de Recepción · estándar de hotelería de lujo</p></main>';
+      '<p class="pie">Joana Bernedo · Academia de Recepción</p></main>';
 
-    app.querySelectorAll('[data-mod]').forEach(el => {
-      const abrir = () => vistaLeccion(MODS.find(m => m.id === el.dataset.mod));
-      el.addEventListener('click', abrir);
-      if (el.tagName === 'LI') el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(); } });
-    });
+    app.querySelectorAll('[data-mod]').forEach(el => el.addEventListener('click', () => vistaModulo(MODS.find(m => m.id === el.dataset.mod))));
+    app.querySelectorAll('[data-empezar]').forEach(el => el.addEventListener('click', () => vistaLeccion(MODS.find(m => m.id === el.dataset.empezar))));
     app.querySelectorAll('[data-turno]').forEach(b => b.addEventListener('click', () => vistaTurno(b.dataset.turno)));
     app.querySelector('[data-mipin]').addEventListener('click', vistaMiPin);
     app.querySelector('[data-ocurrencia]').addEventListener('click', () => vistaOcurrencia());
     enlazarBitacora(app);
     app.querySelector('[data-salir]').addEventListener('click', () => { Datos.salir(); st.perfil = null; ir('#/'); });
+  }
+
+  // ───────────── ficha del módulo: de qué trata y qué vas a hacer, antes de empezar
+  function vistaModulo(mod) {
+    const yo = st.perfil.usuario;
+    const e = estadoModulo(yo, mod.n);
+    const p = progreso(yo, mod.id);
+    const cuenta = {};
+    mod.pasos.forEach(x => { const k = ETAPA[x.tipo]; cuenta[k] = (cuenta[k] || 0) + 1; });
+    const orden = ['Introducción', 'Video', 'Caso real', 'Protocolo', 'Práctica', 'Simulación'];
+    const etapas = orden.filter(k => cuenta[k]).map(k => [k, cuenta[k]]).concat([['Evaluación', 1], ['Tu compromiso', 1]]);
+    const detalle = { 'Introducción': 'De qué se trata y por qué importa', 'Video': 'Un video corto con lo esencial', 'Caso real': 'Situaciones que pasaron en la clínica: ¿qué harías?', 'Protocolo': 'Cada punto del estándar, narrado', 'Práctica': 'Ejercicios rápidos para fijarlo', 'Simulación': 'Contestas una llamada contra el reloj', 'Evaluación': mod.evaluacion.length + ' preguntas · apruebas con ' + Datos.notaAprobatoria, 'Tu compromiso': 'Eliges qué vas a aplicar desde mañana' };
+    const b = BLOQUES[bloqueDe(mod.n)];
+    app.innerHTML = '<div class="leccion"><div class="barra-leccion"><div class="contenedor fila"><button class="cerrar" data-cerrar aria-label="Volver">' + icoX() + '</button>' +
+      '<strong>Bloque ' + (bloqueDe(mod.n) + 1) + ' · ' + esc(b.titulo) + '</strong></div></div>' +
+      '<main class="contenedor cuerpo-leccion entra ficha-mod">' +
+      '<div class="ficha-mod-cab"><span class="mod-ilus grande">' + Ilus.svg(mod.ilus) + '</span><p class="rotulo">Módulo ' + pad(mod.n) + '</p>' +
+      '<h2 class="paso-titulo">' + esc(mod.titulo) + '</h2><p class="paso-sub">' + esc(mod.resumen) + '</p>' + chipModulo(e) + '</div>' +
+      '<div class="resumen"><div><span class="rotulo">Fecha</span><b>' + fechaCorta(e.fecha).slice(0, 6) + '</b></div><div><span class="rotulo">Dura</span><b>' + mod.minutos + ' min</b></div>' +
+      '<div><span class="rotulo">' + (p ? 'Tu nota' : 'Pasos') + '</span><b>' + (p ? p.mejor_nota : mod.pasos.length + 2) + '</b></div></div>' +
+      '<section class="seccion"><div class="titulo"><h3>Qué vas a hacer</h3></div><ol class="ruta">' +
+      etapas.map(([k, n]) => '<li><span class="ruta-ico">' + Ilus.svg({ 'Introducción': 'timbre', 'Video': 'pantalla', 'Caso real': 'alerta', 'Protocolo': 'agenda', 'Práctica': 'mano', 'Simulación': 'telefono', 'Evaluación': 'gafete', 'Tu compromiso': 'manos' }[k]) + '</span>' +
+        '<span><b>' + k + (n > 1 ? ' <small>×' + n + '</small>' : '') + '</b><span>' + detalle[k] + '</span></span></li>').join('') + '</ol></section>' +
+      '</main><div class="pie-leccion"><div class="contenedor">' +
+      (p ? '<div class="botones-dos"><button class="btn sec" data-eval>Solo la evaluación</button><button class="btn" data-empezar>Repasar todo</button></div>'
+        : '<button class="btn" data-empezar>Empezar módulo</button>') + '</div></div></div>';
+    window.scrollTo(0, 0);
+    app.querySelector('[data-cerrar]').addEventListener('click', () => ir('#/inicio', true));
+    app.querySelector('[data-empezar]').addEventListener('click', () => vistaLeccion(mod));
+    app.querySelector('[data-eval]')?.addEventListener('click', () => vistaLeccion(mod, true));
   }
 
   // ───────────── cambiar el PIN propio
@@ -419,7 +484,7 @@
 
     function pintarProgreso() {
       app.querySelectorAll('.progreso i').forEach((el, k) => { el.className = k < L.i ? 'hecho' : k === L.i ? 'actual' : ''; });
-      app.querySelector('.paso-num').textContent = (L.i + 1) + '/' + pasos.length;
+      app.querySelector('.paso-num').textContent = (ETAPA[pasos[L.i].tipo] || '') + ' · ' + (L.i + 1) + '/' + pasos.length;
     }
     function listo(on, texto) {
       seguir.disabled = !on;

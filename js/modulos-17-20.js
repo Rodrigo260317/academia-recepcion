@@ -14,7 +14,7 @@ window.MODULOS.push(
         porque: 'Cada hora vacía es una paciente que no se atendió y un ingreso que no entró.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: el cierre de agenda', archivo: 'media/m17-agenda.mp4', poster: 'media/m17-agenda.jpg',
+        tipo: 'video', titulo: 'Mira el video: el cierre de agenda', archivo: 'media/m17-agenda.mp4?v=jb', poster: 'media/m17-agenda.jpg?v=jb',
         fijate: ['Recordatorio a cada paciente de mañana', 'Llamar a quien no responde', 'Reprogramar en el sistema en el momento', 'Revisar la historia antes de mover una cita al mismo día']
       },
       {
@@ -96,7 +96,7 @@ window.MODULOS.push(
         porque: 'Si falta un papel, la clínica queda sin defensa. Si está en su sitio, todos están protegidos.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: la historia en orden', archivo: 'media/m18-historias.mp4', poster: 'media/m18-historias.jpg',
+        tipo: 'video', titulo: 'Mira el video: la historia en orden', archivo: 'media/m18-historias.mp4?v=jb', poster: 'media/m18-historias.jpg?v=jb',
         fijate: ['Cada resultado se sube a exámenes auxiliares, con su fecha', 'Paciente correcta: nombre y documento', 'Las historias físicas vuelven a su lugar el mismo día', 'Recepción ve, pero no escribe en lo médico']
       },
       {
@@ -178,7 +178,7 @@ window.MODULOS.push(
         porque: 'Al paciente no lo atiende la empresa: lo atiende cada persona que encuentra en el camino.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: el recorrido completo', archivo: 'media/m19-recorrido.mp4', poster: 'media/m19-recorrido.jpg',
+        tipo: 'video', titulo: 'Mira el video: el recorrido completo', archivo: 'media/m19-recorrido.mp4?v=jb', poster: 'media/m19-recorrido.jpg?v=jb',
         fijate: ['Valet y vigilante: saludo y puerta abierta', 'Counter: de pie, por su nombre, y avisar que llegó', 'Acompañar hasta la cabina, no señalar', 'Rondas también en cabina; cobro con POS, con discreción']
       },
       {
@@ -261,7 +261,7 @@ window.MODULOS.push(
         porque: 'Medir no es castigar. Es saber dónde mejorar, juntas.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: un solo equipo', archivo: 'media/m20-equipo.mp4', poster: 'media/m20-equipo.jpg',
+        tipo: 'video', titulo: 'Mira el video: un solo equipo', archivo: 'media/m20-equipo.mp4?v=jb', poster: 'media/m20-equipo.jpg?v=jb',
         fijate: ['La paciente ve una sola clínica', 'Contesta quien está libre', 'Pendientes por escrito; nadie dice «no es mi trabajo»', 'Recepcionista del mes: módulos, presentación y turnos']
       },
       {

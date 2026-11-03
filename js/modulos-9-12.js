@@ -14,7 +14,7 @@ window.MODULOS.push(
         porque: 'El registro no se hace como cada una quiera: se hace como dice el protocolo, siempre igual.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: el registro perfecto', archivo: 'media/m09-admision.mp4', poster: 'media/m09-admision.jpg',
+        tipo: 'video', titulo: 'Mira el video: el registro perfecto', archivo: 'media/m09-admision.mp4?v=jb', poster: 'media/m09-admision.jpg?v=jb',
         fijate: ['Escanear el DNI y verificar que el nombre coincida', 'Correo, distrito, dirección y ocupación: siempre completos', 'La paciente completa en la tablet mientras se le cobra', 'Mismo orden de campos, siempre']
       },
       {
@@ -95,7 +95,7 @@ window.MODULOS.push(
         porque: 'Todos los procedimientos, hasta una vitamina C, tienen su consentimiento firmado.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: el orden correcto', archivo: 'media/m10-flujo.mp4', poster: 'media/m10-flujo.jpg',
+        tipo: 'video', titulo: 'Mira el video: el orden correcto', archivo: 'media/m10-flujo.mp4?v=jb', poster: 'media/m10-flujo.jpg?v=jb',
         fijate: ['Evaluación, cotización, confirmación, pago', 'Un consentimiento por procedimiento', 'Firmado en la tablet mientras actúa el anestésico', 'Sin consentimiento, nadie pasa']
       },
       {
@@ -176,7 +176,7 @@ window.MODULOS.push(
         porque: 'En una clínica de lujo, la paciente confía porque se le dice la verdad, con elegancia.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: la verdad, con elegancia', archivo: 'media/m11-verdad.mp4', poster: 'media/m11-verdad.jpg',
+        tipo: 'video', titulo: 'Mira el video: la verdad, con elegancia', archivo: 'media/m11-verdad.mp4?v=jb', poster: 'media/m11-verdad.jpg?v=jb',
         fijate: ['Decir la verdad a tiempo, sin rodeos', 'Disculparse sin excusas', 'Ofrecer una alternativa o la devolución', 'Comprometerse a avisar, y cumplir']
       },
       {
@@ -247,7 +247,7 @@ window.MODULOS.push(
         porque: 'Se registra lo que pasó, no lo que opinamos de la persona.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: calma y hechos', archivo: 'media/m12-dificiles.mp4', poster: 'media/m12-dificiles.jpg',
+        tipo: 'video', titulo: 'Mira el video: calma y hechos', archivo: 'media/m12-dificiles.mp4?v=jb', poster: 'media/m12-dificiles.jpg?v=jb',
         fijate: ['Bajar la voz y no discutir', 'Escuchar, disculparse y resolver', 'Llevarla a un lugar más privado', 'Anotar hechos, no adjetivos']
       },
       {

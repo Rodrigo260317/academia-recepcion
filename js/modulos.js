@@ -37,7 +37,7 @@ window.MODULOS = [
         porque: 'Ante una complicación se contiene a la paciente, se resuelve, y nunca se la abandona ni se deja de contestar el teléfono.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: nunca sin respuesta', archivo: 'media/m03-complicaciones.mp4', poster: 'media/m03-complicaciones.jpg',
+        tipo: 'video', titulo: 'Mira el video: nunca sin respuesta', archivo: 'media/m03-complicaciones.mp4?v=jb', poster: 'media/m03-complicaciones.jpg?v=jb',
         fijate: ['Contestar en el momento y con calma', 'Registrar fecha, hora y lo que contó', 'Pasarla a la doctora el mismo día', 'Llamar al día siguiente para saber cómo sigue']
       },
       {
@@ -129,7 +129,7 @@ window.MODULOS = [
         porque: 'Pedir el pago primero no es desconfianza: es el orden de una clínica de lujo, explicado con elegancia.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: primero se paga', archivo: 'media/m04-cobro.mp4', poster: 'media/m04-cobro.jpg',
+        tipo: 'video', titulo: 'Mira el video: primero se paga', archivo: 'media/m04-cobro.mp4?v=jb', poster: 'media/m04-cobro.jpg?v=jb',
         fijate: ['Autorización, pago y recién ahí el producto', 'Sin crédito para nadie', 'El plan B se resuelve antes de empezar', 'Se pide con elegancia']
       },
       {
@@ -231,7 +231,7 @@ window.MODULOS = [
         porque: 'Una espera que se explica y se acompaña se perdona. Una espera olvidada no se perdona nunca.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: ninguna paciente olvidada', archivo: 'media/m02-esperas.mp4', poster: 'media/m02-esperas.jpg',
+        tipo: 'video', titulo: 'Mira el video: ninguna paciente olvidada', archivo: 'media/m02-esperas.mp4?v=jb', poster: 'media/m02-esperas.jpg?v=jb',
         fijate: ['Cada paciente que espera tiene una responsable', 'Ronda cada 15 minutos', 'Tiempo real de espera, y se vuelve a avisar', 'Consentimiento en recepción, no en la cabina']
       },
       {
@@ -333,7 +333,7 @@ window.MODULOS = [
         porque: 'Tener más personas en el counter solo sirve si nada se pierde entre una y otra.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: lo que no se entrega se pierde', archivo: 'media/m05-turno-v2.mp4', poster: 'media/m05-turno-v2.jpg',
+        tipo: 'video', titulo: 'Mira el video: lo que no se entrega se pierde', archivo: 'media/m05-turno-v2.mp4?v=jb', poster: 'media/m05-turno-v2.jpg?v=jb',
         fijate: ['Apertura antes de las 8:00: teléfonos, mensaje automático, agenda', 'Cada pendiente con su hora', 'Cierre: llamadas y WhatsApp contados', 'Entrega de palabra y por escrito']
       },
       {
@@ -413,7 +413,7 @@ window.MODULOS = [
         porque: 'Lo que vendemos es servicio, y el servicio es experiencia: desde quien abre la puerta hasta quien despide.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: la bienvenida de lujo', archivo: 'media/m06-bienvenida.mp4', poster: 'media/m06-bienvenida.jpg',
+        tipo: 'video', titulo: 'Mira el video: la bienvenida de lujo', archivo: 'media/m06-bienvenida.mp4?v=jb', poster: 'media/m06-bienvenida.jpg?v=jb',
         fijate: ['El valet sale a recibir y abre la puerta', 'De pie, a los ojos, por su nombre', 'Agua, café o una infusión sin que lo pida', 'Acompaña y despide con su próxima cita']
       },
       {
@@ -521,7 +521,7 @@ window.MODULOS = [
         porque: 'Una complicación se contiene, se resuelve y nunca se deja de contestar el teléfono.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: antes del tercer timbre', archivo: 'media/m01-telefono-v3.mp4', poster: 'media/m01-telefono-v3.jpg',
+        tipo: 'video', titulo: 'Mira el video: antes del tercer timbre', archivo: 'media/m01-telefono-v3.mp4?v=jb', poster: 'media/m01-telefono-v3.jpg?v=jb',
         fijate: ['Los tres teléfonos siempre con volumen alto, nunca desviados', 'Contestar antes del tercer timbre, con el saludo de la casa', 'Devolver la llamada a la hora prometida', 'WhatsApp: si lo abres, lo respondes']
       },
       {
@@ -668,7 +668,7 @@ window.MODULOS = [
         porque: 'Todo lo bueno te jala, y lo malo también. Si una del equipo se alinea, las demás la siguen.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: la presentación es todo', archivo: 'media/m07-presencia.mp4', poster: 'media/m07-presencia.jpg',
+        tipo: 'video', titulo: 'Mira el video: la presentación es todo', archivo: 'media/m07-presencia.mp4?v=jb', poster: 'media/m07-presencia.jpg?v=jb',
         fijate: ['Moño o trenza, maquillaje natural, uñas claras', 'Uniforme impecable y gafete visible', 'Celular guardado', 'Donde ve la paciente: no se come ni se recuesta nadie']
       },
       {
@@ -761,7 +761,7 @@ window.MODULOS = [
         porque: 'La recepcionista ideal mira a los ojos, no hacia abajo, y transmite calidez, confianza y amabilidad sin decir una palabra.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: tu cuerpo habla', archivo: 'media/m08-lenguaje.mp4', poster: 'media/m08-lenguaje.jpg',
+        tipo: 'video', titulo: 'Mira el video: tu cuerpo habla', archivo: 'media/m08-lenguaje.mp4?v=jb', poster: 'media/m08-lenguaje.jpg?v=jb',
         fijate: ['Todo con las dos manos', 'Postura erguida y de frente', 'A los ojos, no a la pantalla', 'Si está sentada, a su altura']
       },
       {

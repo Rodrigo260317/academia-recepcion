@@ -14,7 +14,7 @@ window.MODULOS.push(
         porque: 'Cuando una paciente se queja contigo, todavía estamos a tiempo de arreglarlo.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: cómo se recibe una queja', archivo: 'media/m13-quejas.mp4', poster: 'media/m13-quejas.jpg',
+        tipo: 'video', titulo: 'Mira el video: cómo se recibe una queja', archivo: 'media/m13-quejas.mp4?v=jb', poster: 'media/m13-quejas.jpg?v=jb',
         fijate: ['Escuchar sin interrumpir, agradecer y disculparse', 'Resolver en el momento o decir quién y cuándo', 'El Libro de Reclamaciones se entrega de inmediato', 'Invitar a calificar con el QR al despedirla']
       },
       {
@@ -96,7 +96,7 @@ window.MODULOS.push(
         porque: 'Con un protocolo claro, nadie del equipo queda expuesto a una sospecha.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: objetos olvidados y discreción', archivo: 'media/m14-discrecion.mp4', poster: 'media/m14-discrecion.jpg',
+        tipo: 'video', titulo: 'Mira el video: objetos olvidados y discreción', archivo: 'media/m14-discrecion.mp4?v=jb', poster: 'media/m14-discrecion.jpg?v=jb',
         fijate: ['Revisar el sillón cada vez que una paciente se retira', 'Abrir y contar entre dos, y anotarlo en la bitácora', 'Guardar bajo llave y llamar a la paciente', 'Nunca comentar en voz alta el tratamiento de nadie']
       },
       {
@@ -178,7 +178,7 @@ window.MODULOS.push(
         porque: 'Si los beneficios no se notan, la tarjeta no vale. Y si se dan a todas, tampoco.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: la paciente esperada', archivo: 'media/m15-vip.mp4', poster: 'media/m15-vip.jpg',
+        tipo: 'video', titulo: 'Mira el video: la paciente esperada', archivo: 'media/m15-vip.mp4?v=jb', poster: 'media/m15-vip.jpg?v=jb',
         fijate: ['La tarjeta depende del consumo del año, no del día', 'Revisar en el sistema su nivel antes de que llegue', 'Ofrecer lo que le corresponde sin que lo pida', 'Beneficios siempre, y solo a quien le corresponden']
       },
       {
@@ -249,7 +249,7 @@ window.MODULOS.push(
         porque: 'Una paciente que se sintió presionada no vuelve. Una que entendió todo, sí.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: ayudar a decidir', archivo: 'media/m16-venta.mp4', poster: 'media/m16-venta.jpg',
+        tipo: 'video', titulo: 'Mira el video: ayudar a decidir', archivo: 'media/m16-venta.mp4?v=jb', poster: 'media/m16-venta.jpg?v=jb',
         fijate: ['Escuchar qué busca y agendar una evaluación', 'Explicar la cotización: qué incluye, sesiones, precio y forma de pago', 'La verdad, sin prometer resultados', 'Recordar a tiempo el mantenimiento que indicó la doctora']
       },
       {
