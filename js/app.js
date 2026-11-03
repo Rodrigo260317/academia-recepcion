@@ -114,8 +114,8 @@
   // ───────────── ingreso
   function vistaIngreso() {
     app.innerHTML = '<div class="ingreso">' + avisoDemo() +
-      '<header class="banda"><div class="contenedor">' +
-      '<p class="quien">Academia de Recepción</p>' +
+      '<header class="banda"><div class="contenedor">' + '<div class="marca-jb"><img src="media/logo-jb.png" alt=""><div><span>Joana Bernedo</span><small>Academia de Recepción</small></div></div>' +
+      '' +
       '<h1>¿Quién entra?</h1><p class="sub">Capacitación de ' + esc(CFG.hora) + ' a ' + esc(CFG.horaFin) + ', lunes y jueves.</p>' +
       '</div></header><main class="contenedor"><div class="lista-usuarios">' +
       Datos.usuarios.map(u => '<button data-u="' + u.usuario + '"><span>' + esc(u.nombre) + '</span><span class="rotulo">' + (u.rol === 'admin' ? 'Panel' : 'Entrar') + '</span></button>').join('') +
@@ -126,7 +126,7 @@
   function vistaPin(u) {
     let pin = '';
     app.innerHTML = '<div class="ingreso">' + avisoDemo() +
-      '<header class="banda"><div class="contenedor"><div class="fila"><p class="quien">Academia de Recepción</p>' +
+      '<header class="banda"><div class="contenedor">' + '<div class="marca-jb"><img src="media/logo-jb.png" alt=""><div><span>Joana Bernedo</span><small>Academia de Recepción</small></div></div>' + '<div class="fila"><span></span>' +
       '<button class="enlace-banda" data-volver>Cambiar</button></div>' +
       '<h1>' + esc(u.nombre) + '</h1><p class="sub">Escribe tu PIN de 4 dígitos.</p></div></header>' +
       '<main class="contenedor"><div class="teclado-pin">' +
@@ -194,7 +194,7 @@
     const rk = ranking();
 
     app.innerHTML = avisoDemo() +
-      '<header class="banda"><div class="contenedor"><div class="fila"><p class="quien"><b>' + esc(st.perfil.nombre) + '</b> · ' + fechaLarga(h) + '</p>' +
+      '<header class="banda"><div class="contenedor">' + '<div class="marca-jb"><img src="media/logo-jb.png" alt=""><div><span>Joana Bernedo</span><small>Academia de Recepción</small></div></div>' + '<div class="fila"><p class="quien"><b>' + esc(st.perfil.nombre) + '</b> · ' + fechaLarga(h) + '</p>' +
       '<span style="display:flex;gap:8px"><button class="enlace-banda" data-mipin>Mi PIN</button><button class="enlace-banda" data-salir>Salir</button></span></div><h1>' + esc(titulo) + '</h1>' +
       '<p class="sub">Capacitación de ' + esc(CFG.hora) + ' a ' + esc(CFG.horaFin) + ', antes de abrir.</p></div></header>' +
       '<main class="contenedor">' + pase +
@@ -880,7 +880,7 @@
     const h = hoy();
     const pestanas = [['tablero', 'Tablero'], ['presentacion', 'Presentación'], ['turnos', 'Turnos y llamadas'], ['bitacora', 'Bitácora'], ['ranking', 'Recepcionista del mes'], ['pines', 'Usuarios y PIN']];
     app.innerHTML = '<div class="admin">' + avisoDemo() +
-      '<header class="banda"><div class="contenedor"><div class="fila"><p class="quien"><b>Admin</b> · ' + fechaLarga(h) + '</p>' +
+      '<header class="banda"><div class="contenedor">' + '<div class="marca-jb"><img src="media/logo-jb.png" alt=""><div><span>Joana Bernedo</span><small>Academia de Recepción</small></div></div>' + '<div class="fila"><p class="quien"><b>Admin</b> · ' + fechaLarga(h) + '</p>' +
       '<span style="display:flex;gap:8px"><button class="enlace-banda" data-actualizar>Actualizar</button><button class="enlace-banda" data-salir>Salir</button></span></div>' +
       '<h1>Panel de la Academia</h1>' +
       '<nav class="admin-nav" role="tablist">' + pestanas.map(([k, t]) => '<button role="tab" data-tab="' + k + '" aria-selected="' + (st.vistaAdmin === k) + '">' + t + '</button>').join('') + '</nav>' +
