@@ -521,7 +521,7 @@ window.MODULOS = [
         porque: 'Una complicación se contiene, se resuelve y nunca se deja de contestar el teléfono.'
       },
       {
-        tipo: 'video', titulo: 'Mira el video: antes del tercer timbre', archivo: 'media/m01-telefono.mp4', poster: 'media/m01-telefono.jpg',
+        tipo: 'video', titulo: 'Mira el video: antes del tercer timbre', archivo: 'media/m01-telefono-v2.mp4', poster: 'media/m01-telefono-v2.jpg',
         fijate: ['Los tres teléfonos siempre con volumen alto, nunca desviados', 'Contestar antes del tercer timbre, con el saludo de la casa', 'Devolver la llamada a la hora prometida', 'WhatsApp: si lo abres, lo respondes']
       },
       {
